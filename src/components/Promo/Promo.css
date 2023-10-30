@@ -1,0 +1,104 @@
+.promo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 94%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.promo__banner{
+  width: 100%;
+  height: 493px;
+  background-color: #272727;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.promo__banner-text{
+  font-size: 50px;
+  font-weight: 500;
+  line-height: 58px;
+  max-width: 730px;
+  margin-top: 160px;
+  margin-bottom: 0;
+}
+
+.promo__banner-link-button{
+  font-size: 12px;
+  line-height: 16px;
+  max-width: 116px;
+  background-color: #303030;
+  border-radius: 10px;
+  color: white;
+  border: none;
+  width: 96px;
+  height: 36px;
+  margin-top: 151px;
+}
+
+.promo__about{
+  text-align: start;
+  width: 95%;
+}
+
+.promo__heading{
+  font-weight: 400;
+  font-size: 22px;
+  margin-top: 110px;
+  margin-bottom: 70px;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #DADADA;
+}
+
+.promo__about-items{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+}
+
+.promo__about-item-title{
+  font-size: 20px;
+  margin-bottom: 26px;
+}
+
+.promo__about-item-subtitle{
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 110px;
+}
+
+.promo__about-plank{
+  display: grid;
+  text-align: center;
+  align-items: center;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 36px 36px;
+}
+
+.promo__about-plank-text{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.promo__about-plank-text_type_green{
+  color: black;
+  background-color: #3DDC84;
+}
+
+.promo__about-plank-text_type_grey{
+  background-color: #303030;
+}
+
+.promo__about-plank-subtext{
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 500;
+  color: #8B8B8B;
+}
