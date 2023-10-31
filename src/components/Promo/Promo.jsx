@@ -1,6 +1,5 @@
 import React from 'react';
 import './Promo.css';
-import photo from '../../images/myPhoto.png';
 
 function Promo() {
   return(

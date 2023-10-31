@@ -1,6 +1,7 @@
 .header{
+  margin: auto;
   display: flex;
-  width: 100%;
+  width: 89%;
   height: 74px;
   align-items: center;
   justify-content: space-between;
@@ -9,7 +10,6 @@
 .header__logo{
   width: 38px;
   height: 38px;
-  margin-left: 70px;
 }
 
 .header__links-container{
@@ -20,7 +20,6 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
-  margin-right: 70px;
   border-radius: 20px;
   background-color: #313131;
   color: white;
@@ -41,4 +40,23 @@
 
 .header__link:first-of-type{
   margin-left: 0;
+}
+
+.header__auth-button{
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  background: none;
+  color: white;
+  border: none;
+}
+
+.header__auth-button_type_green{
+  border-radius: 3px;
+  background-color: #3DDC84;
+  color: black;
+  border: none;
+  width: 76px;
+  height: 32px;
+  margin-left: 24px;
 }
