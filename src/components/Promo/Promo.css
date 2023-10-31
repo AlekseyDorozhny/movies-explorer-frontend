@@ -19,11 +19,12 @@
 
 .promo__banner-text{
   font-size: 50px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 58px;
   max-width: 730px;
   margin-top: 160px;
   margin-bottom: 0;
+  letter-spacing: -2px;
 }
 
 .promo__banner-link-button{
@@ -37,20 +38,21 @@
   width: 96px;
   height: 36px;
   margin-top: 151px;
+  margin-right: 10px;
 }
 
-.promo__about{
-  text-align: start;
-  width: 95%;
+.promo__banner-link-button:last-of-type{
+  margin-right: 0;
 }
 
 .promo__heading{
   font-weight: 400;
   font-size: 22px;
   margin-top: 110px;
-  margin-bottom: 70px;
+  margin-bottom: 53px;
   padding-bottom: 23px;
   border-bottom: 1px solid #DADADA;
+  letter-spacing: -0.88px;
 }
 
 .promo__about-items{
@@ -62,6 +64,8 @@
 .promo__about-item-title{
   font-size: 20px;
   margin-bottom: 26px;
+  letter-spacing: -0.8px;
+  font-weight: 400;
 }
 
 .promo__about-item-subtitle{
@@ -76,6 +80,7 @@
   align-items: center;
   grid-template-columns: 20% 80%;
   grid-template-rows: 36px 36px;
+  margin-bottom: 110px;
 }
 
 .promo__about-plank-text{
@@ -97,8 +102,174 @@
 }
 
 .promo__about-plank-subtext{
+  margin-top: 20px;
   font-size: 14px;
   line-height: 17px;
   font-weight: 500;
   color: #8B8B8B;
+}
+
+.promo__item{
+  text-align: start;
+  width: 95%;
+}
+
+.promo__techs-heading-container{
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 100px;
+  width: 460px;
+  text-align: center;
+}
+
+.promo__heading-type-tech{
+  width: 95%;
+  margin: auto;
+  margin-top: 96px;
+  margin-bottom: 90px;
+}
+
+.promo__techs-title{
+  font-size: 50px;
+  line-height: 58px;
+  font-weight: 400;
+  letter-spacing: -2px;
+  margin-bottom: 26px;
+}
+
+.promo__techs-subtitle{
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: -0.56px;
+}
+
+.promo__techs-item{
+  border-radius: 10px;
+  background: #303030;
+  width: 90px;
+  height: 60px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.promo__techs-item-text{
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.56px;
+}
+
+.promo__techs-items{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+
+.promo__techs-item:last-of-type{
+  margin-right: 0px;
+}
+
+.promo__techs{
+  width: 100%;
+  padding-left: 80px;
+  padding-right: 80px;
+  background: #272727;
+}
+
+.promo__student-container{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  min-height: 325px;
+}
+
+.promo__student-name{
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: -2px;
+  margin: 0;
+  margin-top: 14px;
+  margin-bottom: 18px;
+}
+
+.promo__student-activity{
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-bottom: 26px;
+  margin-top: 0;
+}
+
+.promo__student-about-me{
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  margin: 0;
+  margin-bottom: 99px;
+}
+
+.promo__student-link{
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+}
+
+.promo__student-info{
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 85px;
+}
+
+.promo__student-photo{
+  margin-top: 14px;
+  border-radius: 10px;
+  background: url('../../images/myPhoto.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 270px;
+  height: 327px;
+}
+
+.promo_portfolio-heading{
+  color: #8B8B8B;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+  margin-bottom: 49px;
+}
+
+.promo_portfolio-item{
+  height: 70px;
+  border-bottom: 1px solid #424242;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.promo_portfolio-item-name{
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: -1.2px;
+}
+
+.promo_portfolio-item:last-of-type{
+  height: 70px;
+  border-bottom: none;
+  margin-bottom: 125px;
+}
+
+.promo_portfolio-item-icon{
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 60px;
+  letter-spacing: -1.2px;
+  margin: 0;
 }
