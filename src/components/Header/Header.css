@@ -1,10 +1,7 @@
 .header{
   margin: auto;
-  display: flex;
   width: 89%;
   height: 74px;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .header__logo{
@@ -13,6 +10,10 @@
 }
 
 .header__links-container{
+  display: flex;
+}
+
+.header__auth-link-container{
   display: flex;
 }
 
@@ -29,6 +30,8 @@
 }
 
 .header__link{
+  color: white;
+  text-decoration: none;
   font-weight: normal;
   font-size: 13px;
   line-height: 18px;
@@ -43,20 +46,29 @@
 }
 
 .header__auth-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
   background: none;
   color: white;
   border: none;
+  text-decoration: none;
 }
 
 .header__auth-button_type_green{
   border-radius: 3px;
   background-color: #3DDC84;
   color: black;
-  border: none;
   width: 76px;
   height: 32px;
   margin-left: 24px;
+}
+
+.header__nav-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

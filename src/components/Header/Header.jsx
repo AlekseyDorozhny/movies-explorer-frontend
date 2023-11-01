@@ -1,21 +1,29 @@
 import React from 'react';
 import './Header.css';
 import headerLogo from '../../images/logo.svg';
-import {Route, Routes, useNavigate} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-function Header() {
+function Header({loggedIn}) {
   return(
     <header className='header'>
-      <img className='header__logo' src= {headerLogo} alt='Логотип Movie Explorer'/>
-      {/* <div className='header__links-container'>
-        <p className='header__link'>Фильмы</p>
-        <p className='header__link'>Сохранённые фильмы</p>
-      </div>
-      <button className='header__button' type='button' aria-label='переход в аккаунт'>Аккаунт</button> */}
-      <div className='header__auth-link-container'>
-        <button className='header__auth-button' type='button' aria-label='переход в регистрацию'>Регистрация</button>
-        <button className='header__auth-button header__auth-button_type_green' type='button' aria-label='переход на страницу входа'>Войти</button>
-      </div>
+      {loggedIn?
+        <nav className='header__nav-container'>
+          <img className='header__logo' src= {headerLogo} alt='Логотип Movie Explorer'/>
+          <div className='header__links-container'>
+            <NavLink to='/movies' className={'header__link'}>Фильмы</NavLink>
+            <NavLink to='/saved-movies' className={'header__link'}>Сохранённые фильмы</NavLink>
+          </div>
+          <button className='header__button' type='button' aria-label='переход в аккаунт'>Аккаунт</button>
+        </nav>
+      :
+      <nav className='header__nav-container'>
+        <img className='header__logo' src= {headerLogo} alt='Логотип Movie Explorer'/>
+        <div className='header__auth-link-container'>
+          <NavLink to='/signup' className={'header__auth-button'}>Регистрация</NavLink>
+          <NavLink to='/signin' className={'header__auth-button header__auth-button_type_green'}>Войти</NavLink>
+        </div>
+      </nav>
+      }
     </header>
   )
 }
