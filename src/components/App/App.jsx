@@ -3,9 +3,11 @@ import {Route, Routes, useNavigate} from 'react-router-dom';
 
 import './App.css';
 
-import Promo from '../Promo/Promo';
+import Main from '../Main/Main';
 import StandartPage from "../StandartPage/StandartPage";
-
+import PageNotFound from '../PageNotFound/PageNotFound'
+import Movies from '../Movies/Movies'
+import SavedMovies from '../SavedMovies/SavedMovies'
 
 import Register from '../Register/Register';
 import Login from '../Login/Login'
@@ -26,15 +28,12 @@ function App() {
       <Routes>
         <Route path='/'
         element={<StandartPage
-        element={Promo}
+        element={Main}
         loggedIn={loggedIn}
         />}
         />
         <Route path='/movies'
-        element={<StandartPage
-        element={Movies}
-        loggedIn={loggedIn}
-        />}
+        element={<Movies />}
         />
         <Route path='/saved-movies'
         element={<StandartPage
@@ -43,7 +42,7 @@ function App() {
         />}
         />
         <Route path='/profile'
-        element={<Promo />}
+        element={<Main />}
         />
         <Route path='/signin'
         element={<Login
@@ -53,6 +52,7 @@ function App() {
         <Route path='/signup'
         element={<Register />}
         />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
   );

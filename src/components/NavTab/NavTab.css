@@ -1,0 +1,23 @@
+.navTab__button{
+  font-size: 12px;
+  line-height: 16px;
+  background-color: #303030;
+  border-radius: 10px;
+
+  border: none;
+  width: 96px;
+  height: 36px;
+  margin-top: 151px;
+  margin-right: 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.navTab__button:last-child{
+  margin-right: 0px;
+}
+
+.navTab__link{
+  color: white;
+  text-decoration: none;
+}
