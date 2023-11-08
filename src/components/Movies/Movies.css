@@ -1,0 +1,8 @@
+.movies{
+  width: 89%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  background: url('../../images/searchIcon.svg');
+}
+

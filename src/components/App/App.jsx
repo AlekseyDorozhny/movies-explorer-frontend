@@ -33,7 +33,10 @@ function App() {
         />}
         />
         <Route path='/movies'
-        element={<Movies />}
+        element={<StandartPage
+        element={Movies}
+        loggedIn={loggedIn}
+        />}
         />
         <Route path='/saved-movies'
         element={<StandartPage
