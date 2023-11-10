@@ -1,12 +1,12 @@
 import React from 'react';
-import './Movies.css';
+import './SavedMovies.css';
 
 import SearchForm from '../SearchForm/SearchForm'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-import {moviesData} from '../../utils/constants'
-
+import {savedMoviesData} from '../../utils/constants'
+console.log(savedMoviesData)
 function Movies() {
   return(
     <div className='movies'>
@@ -15,10 +15,9 @@ function Movies() {
         <FilterCheckbox />
       </div>
       <MoviesCardList
-      cardsData = {moviesData}
-      type = 'movies'
+       cardsData = {savedMoviesData}
+       type = 'savedMovies'
       />
-      <button className='movies__button' type='button'>Ещё</button>
     </div>
   )
 }

@@ -5,7 +5,6 @@ import './SearchForm.css';
 function SearchForm() {
   return(
     <form className="search-form" name='SearchForm' method="post">
-
       <label className="search-form__field">
         <input type="film"
         className="search-form__input"

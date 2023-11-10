@@ -5,12 +5,13 @@ import './App.css';
 
 import Main from '../Main/Main';
 import StandartPage from "../StandartPage/StandartPage";
-import PageNotFound from '../PageNotFound/PageNotFound'
-import Movies from '../Movies/Movies'
-import SavedMovies from '../SavedMovies/SavedMovies'
+import PageNotFound from '../PageNotFound/PageNotFound';
+import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 
 import Register from '../Register/Register';
-import Login from '../Login/Login'
+import Login from '../Login/Login';
+import Profile from '../Profile/Profile';
 
 function App() {
   const [loggedIn, changeLoggedStatus] = React.useState(false)
@@ -28,24 +29,26 @@ function App() {
       <Routes>
         <Route path='/'
         element={<StandartPage
-        element={Main}
-        loggedIn={loggedIn}
+          element={Main}
+          loggedIn={loggedIn}
         />}
         />
         <Route path='/movies'
         element={<StandartPage
-        element={Movies}
-        loggedIn={loggedIn}
+          element={Movies}
+          loggedIn={loggedIn}
         />}
         />
         <Route path='/saved-movies'
         element={<StandartPage
-        element={SavedMovies}
-        loggedIn={loggedIn}
+          element={SavedMovies}
+          loggedIn={loggedIn}
         />}
         />
         <Route path='/profile'
-        element={<Main />}
+        element={<Profile
+        loggedIn={loggedIn}
+        />}
         />
         <Route path='/signin'
         element={<Login

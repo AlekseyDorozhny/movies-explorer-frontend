@@ -5,16 +5,10 @@ import { HashLink as Link } from 'react-router-hash-link';
 function NavTab() {
   return(
     <div className='navTab'>
-      <button className='navTab__button'>
-        <Link to="/#about-Project" className='navTab__link'>О проекте</Link>
-      </button>
-      <button className='navTab__button'>
-        <Link to="/#techs" className='navTab__link'>Технологии</Link>
-      </button>
-      <button className='navTab__button'>
-        <Link to="/#aboutMe" className='navTab__link'>Студент</Link>
-      </button>
-  </div>
+      <Link to="/#about-Project" className='navTab__button'>О проекте</Link>
+      <Link to="/#techs" className='navTab__button'>Технологии</Link>
+      <Link to="/#aboutMe" className='navTab__button'>Студент</Link>
+    </div>
   )
 }
 

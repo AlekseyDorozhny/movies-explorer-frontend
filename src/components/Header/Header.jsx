@@ -8,12 +8,15 @@ function Header({loggedIn}) {
     <header className='header'>
       {loggedIn?
         <nav className='header__nav-container'>
-          <img className='header__logo' src= {headerLogo} alt='Логотип Movie Explorer'/>
+          <NavLink to='/' className="header__nav-link-to-main"><img className='header__logo' src= {headerLogo} alt='Логотип Movie Explorer'/></NavLink>
+
           <div className='header__links-container'>
             <NavLink to='/movies' className={'header__link'}>Фильмы</NavLink>
             <NavLink to='/saved-movies' className={'header__link'}>Сохранённые фильмы</NavLink>
           </div>
-          <button className='header__button' type='button' aria-label='переход в аккаунт'>Аккаунт</button>
+          <NavLink to='/profile' className={'header__button'}>
+            <p className='header__button-link'>Аккаунт</p>
+          </NavLink>
         </nav>
       :
       <nav className='header__nav-container'>
