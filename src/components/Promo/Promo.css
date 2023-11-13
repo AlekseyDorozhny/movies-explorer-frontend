@@ -6,6 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  border-radius: 10px;
 }
 
 .promo-text{
@@ -20,4 +21,32 @@
 
 .promo-link-button:last-of-type{
   margin-right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .promo{
+    height: 834px;
+  }
+
+  .promo-text{
+    max-width: 680px;
+    font-size: 40px;
+    line-height: 52px;
+    letter-spacing: -1.6px;
+    margin-top: 353px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .promo{
+    height: 586px;
+  }
+
+  .promo-text{
+    max-width: 292px;
+    font-size: 29px;
+    line-height: 37px;
+    letter-spacing: -1.16px;
+    margin-top: 220px;
+  }
 }

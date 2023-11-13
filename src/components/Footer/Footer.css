@@ -1,7 +1,7 @@
 .footer{
-  width: 89%;
+  width: 92%;
   margin: auto;
-  margin-top: 55px;
+  margin-top: 52px;
 }
 
 .footer__text{
@@ -13,7 +13,7 @@
   margin-bottom: 22px;
 }
 
-.footer__conteiner{
+.footer__container{
   padding-top: 8px;
   display: flex;
   border-top: 1px solid #424242;
@@ -36,4 +36,44 @@
 
 .footer__text:last-of-type{
   margin-right: 0px;
+}
+
+@media screen and (max-width: 320px) {
+  .footer{
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+    font-size: 12px;
+  }
+
+  .footer__text{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+  }
+
+  .footer__container{
+    margin-top: 22px;
+    padding-top: 30px;
+    display: grid;
+    grid-template-areas:
+      'links'
+      'year';
+    justify-content: center;
+  }
+
+  .footer__group-container{
+    flex-direction: column;
+    grid-area: links;
+  }
+
+  .footer__text_type_year{
+    grid-area: year;
+    margin-top: 18px;
+  }
+
+  .footer__text_type_link{
+    margin-bottom: 12px;
+  }
 }

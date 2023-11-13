@@ -8,3 +8,14 @@
 }
 
 
+@media screen and (max-width: 768px) {
+  .main {
+    width: 94.5%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .main {
+    width: 91.5%;
+  }
+}

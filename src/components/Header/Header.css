@@ -1,8 +1,8 @@
 .header{
   margin: auto;
-  width: 89%;
+  width: 92%;
   height: 74px;
-  margin-top: 18px;
+  margin-top: 19px;
   position: relative;
 }
 
@@ -79,4 +79,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 320px) {
+  .header__auth-button{
+    font-size: 10px;
+    line-height: 16px;
+  }
+
+  .header__auth-button_type_green{
+    border-radius: 3px;
+    background-color: #3DDC84;
+    color: black;
+    width: 54px;
+    height: 26px;
+    margin-left: 14px;
+  }
+
+  .header{
+    height: 67px;
+  }
 }

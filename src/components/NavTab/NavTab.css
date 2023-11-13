@@ -1,5 +1,6 @@
 .navTab {
   display: flex;
+  margin-top: 151px;
 }
 
 .navTab__button{
@@ -10,7 +11,6 @@
   border-radius: 10px;
   width: 96px;
   height: 36px;
-  margin-top: 151px;
   margin-right: 10px;
   text-align: center;
   text-decoration: none;
@@ -21,4 +21,24 @@
 
 .navTab__button:last-child{
   margin-right: 0px;
+}
+
+@media screen and (max-width: 768px) {
+  .navTab {
+    margin-top: 314px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .navTab {
+    margin-top: 212px;
+  }
+
+  .navTab__button{
+    font-size: 10px;
+    border-radius: 6px;
+    width: 82px;
+    height: 26px;
+    margin-right: 6px;
+  }
 }

@@ -87,3 +87,47 @@
   color: #4285F4;
   text-decoration: none;
 }
+
+@media screen and (max-width: 768px) {
+
+  .auth__container{
+    margin-top: 232px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .auth__container{
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    text-align: center;
+    margin-top: 56px;
+  }
+
+  .auth__input{
+    width: 230px;
+  }
+
+  .auth__heading{
+    margin-top: 47px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .auth__form{
+    text-align: left;
+  }
+
+  .auth__inputs-container{
+    margin-top: 60px;
+    min-height: 266px;
+    margin-bottom: 157px;
+  }
+
+  .auth__subtitle{
+    margin-top: 14px;
+    text-align: center;
+    font-size: 12px;
+  }
+}
