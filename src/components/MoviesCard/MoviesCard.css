@@ -104,3 +104,41 @@
 .movies-card__image-container:hover .movies-card__delete-button{
   opacity: 100%;
 }
+
+@media screen and (max-width: 830px) {
+  .movies-card{
+    width: 339px;
+  }
+
+  .movies-card__image-container{
+    height: 190px;
+  }
+
+  .movies-card__name{
+    margin: 0;
+  }
+
+  .movies-card__info-container{
+    margin-top: 25px;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .movies-card{
+    width: 300px;
+  }
+
+  .movies-card__image-container{
+    height: 168px;
+  }
+
+  .movies-card__name{
+    font-size: 12px;
+    line-height: normal;
+  }
+
+  .movies-card__info-container{
+    margin-top: 15px;
+  }
+}

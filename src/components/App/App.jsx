@@ -15,7 +15,11 @@ import Profile from '../Profile/Profile';
 
 function App() {
   const [loggedIn, changeLoggedStatus] = React.useState(false)
+  const [burgerStatus, onBurger] = React.useState(false)
 
+React.useEffect(() => {
+  console.log(burgerStatus)
+},[burgerStatus])
   const navigate = useNavigate();
 
   function handleLoginSubmit() {
@@ -31,23 +35,31 @@ function App() {
         element={<StandartPage
           element={Main}
           loggedIn={loggedIn}
+          burgerStatus={burgerStatus}
+          onBurger={onBurger}
         />}
         />
         <Route path='/movies'
         element={<StandartPage
           element={Movies}
           loggedIn={loggedIn}
+          burgerStatus={burgerStatus}
+          onBurger={onBurger}
         />}
         />
         <Route path='/saved-movies'
         element={<StandartPage
           element={SavedMovies}
           loggedIn={loggedIn}
+          burgerStatus={burgerStatus}
+          onBurger={onBurger}
         />}
         />
         <Route path='/profile'
         element={<Profile
         loggedIn={loggedIn}
+        burgerStatus={burgerStatus}
+        onBurger={onBurger}
         />}
         />
         <Route path='/signin'

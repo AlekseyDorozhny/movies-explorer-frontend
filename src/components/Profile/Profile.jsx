@@ -2,11 +2,13 @@ import React from 'react';
 import './Profile.css';
 
 import Header from '../Header/Header';
-function Profile({ loggedIn }) {
+function Profile({ loggedIn, burgerStatus, onBurger }) {
   return(
     <>
       <Header
       loggedIn = {loggedIn}
+      burgerStatus={burgerStatus}
+      onBurger={onBurger}
       />
       <div className='profile'>
         <h2 className='profile__greetings'>Привет, Виталий!</h2>

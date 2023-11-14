@@ -6,7 +6,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 import {savedMoviesData} from '../../utils/constants'
-console.log(savedMoviesData)
+
 function Movies() {
   return(
     <div className='movies'>

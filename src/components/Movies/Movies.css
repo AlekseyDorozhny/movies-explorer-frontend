@@ -4,6 +4,7 @@
   flex-direction: column;
   margin: auto;
   margin-bottom: 80px;
+  align-items: center;
 }
 
 .movies__head-panel{
@@ -26,4 +27,24 @@
   color: #FFF;
   font-size: 12px;
   font-weight: 500;
+}
+
+@media screen and (max-width: 320px) {
+  .movies__button{
+    width: 240px;
+    height: 36px;
+  }
+
+}
+
+@media screen and (max-width: 770px) {
+  .movies{
+    width: 92%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-bottom: 80px;
+    align-items: center;
+  }
+
 }

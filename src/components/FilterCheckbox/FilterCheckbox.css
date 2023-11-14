@@ -22,3 +22,22 @@
   line-height: 18px;
   margin: 0;
 }
+
+@media screen and (max-width: 768px) {
+  .filter-checkbox{
+    margin-top: 41px;
+    margin-bottom: 29px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .filter-checkbox{
+    margin-top: 44px;
+    margin-bottom: 29px;
+  }
+
+  .filter-checkbox__text{
+    font-size: 11px;
+    line-height: 18px;
+  }
+}

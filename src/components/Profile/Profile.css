@@ -41,3 +41,36 @@
 .profile__link_type_red{
   color: #EE3465;
 }
+
+@media screen and (max-width: 768px) {
+
+  .profile{
+    margin-top: 218px;
+  }
+
+  .profile__greetings{
+    margin-bottom: 85px;
+  }
+
+  .profile__elements:last-of-type{
+    margin-bottom: 180px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__elements{
+    width: 260px;
+  }
+
+  .profile__greetings{
+    margin-bottom: 70px;
+  }
+
+  .profile__elements:last-of-type{
+    margin-bottom: 350px;
+  }
+
+  .profile{
+    margin-top: 50px;
+  }
+}
