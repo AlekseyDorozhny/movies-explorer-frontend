@@ -15,8 +15,8 @@ function Movies() {
         <FilterCheckbox />
       </div>
       <MoviesCardList
-       cardsData = {savedMoviesData}
-       type = 'savedMovies'
+      cardsData = {savedMoviesData}
+      type = 'savedMovies'
       />
     </div>
   )

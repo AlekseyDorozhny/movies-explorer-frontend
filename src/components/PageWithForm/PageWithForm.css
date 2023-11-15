@@ -9,7 +9,14 @@
 
 .auth__logo-link{
   margin: 0;
+  transition: opacity 0.3s;
 }
+
+.auth__logo-link:hover{
+  opacity: 0.7;
+}
+
+
 
 .auth__form{
   display: flex;
@@ -60,6 +67,12 @@
   font-size: 14px;
   font-weight: 500;
   line-height: normal;
+  transition: opacity 0.3s;
+}
+
+.auth__save-button:hover{
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 .auth__inputs-container{
@@ -86,6 +99,11 @@
 .auth__subtitle_type_link{
   color: #4285F4;
   text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.auth__subtitle_type_link:hover{
+  opacity: 0.7;
 }
 
 @media screen and (max-width: 768px) {

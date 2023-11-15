@@ -1,28 +1,30 @@
 import React from 'react';
 import './Navigation.css';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 function Navigation({loggedIn, burgerStatus, onBurger}) {
 
-  const cardStatusClassName = (
+  const burgerStatusClassName = (
     burgerStatus? 'navigation__burger-container' : 'navigation__burger-container navigation__burger-container_closed'
   );
+
   return(
     <>
       {loggedIn?
         <nav className='navigation'>
-          <div className= {cardStatusClassName}>
+          <div className= {burgerStatusClassName}>
             <button className='navigation__close-button' type='button' onClick={() =>{ onBurger(false)}}></button>
               <div className='navigation__links-container'>
                 <NavLink to='/'
-                className={'navigation__link navigation__link_type_shifty'}
+                className={({ isActive }) => (isActive ? 'navigation__link navigation__link_active navigation__link_type_shifty' : 'navigation__link navigation__link_type_shifty')}
                 onClick={() =>{ onBurger(false)}}
                 >Главная</NavLink>
-                <NavLink to='/movies' className={'navigation__link'}
+                <NavLink to='/movies'
+                className={({ isActive }) => (isActive ? 'navigation__link navigation__link_active' : 'navigation__link')}
                 onClick={() =>{ onBurger(false)}}
                 >Фильмы</NavLink>
                 <NavLink to='/saved-movies'
-                className={'navigation__link'}
+                className={({ isActive }) => (isActive ? 'navigation__link navigation__link_active' : 'navigation__link')}
                 onClick={() =>{ onBurger(false)}}
                 >Сохранённые фильмы</NavLink>
               </div>

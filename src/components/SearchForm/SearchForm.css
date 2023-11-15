@@ -35,5 +35,11 @@
   background-size: cover;
   flex-shrink: 0;
   margin-left: 10px;
+  transition: opacity 0.3s;
+}
+
+.search-form__button:hover{
+  opacity: 0.8;
+  cursor: pointer;
 }
 
