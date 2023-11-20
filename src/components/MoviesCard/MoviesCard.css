@@ -1,5 +1,6 @@
 .movies-card{
   width: 360px;
+  list-style-type: none;
 }
 
 .movies-card__image{
@@ -31,7 +32,7 @@
   line-height: 9px;
   border: none;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity 0.5s;
 }
 
 .movies-card__save-button_unactive{
@@ -50,10 +51,21 @@
   height: 21px;
   background-image: url(../../images/checkbox.svg);
   display: none;
+  transition: opacity 0.3s;
+}
+
+.movies-card__checkbox_active:hover{
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.movies-card__save-button:hover{
+  cursor: pointer;
 }
 
 .movies-card__checkbox_active{
   display: block;
+  transition: opacity 0.3s;
 }
 
 .movies-card__info-container{

@@ -11,7 +11,7 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick }) {
       onBurger={onBurger}
       />
       <div className='profile'>
-        <h2 className='profile__greetings'>Привет, Виталий!</h2>
+        <h1 className='profile__greetings'>Привет, Виталий!</h1>
         <div className='profile__elements'>
           <p className='profile__element'>Имя</p>
           <p className='profile__element'>Виталий</p>

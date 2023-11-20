@@ -7,7 +7,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 function MoviesCardList({ cardsData, type }) {
   return(
     <div className='movies-card-list'>
-      <div className='movies-card-list__container'>
+      <ul className='movies-card-list__container'>
         {cardsData.map((card, i) => {
           return(<MoviesCard
             movieImage={card.image}
@@ -18,7 +18,7 @@ function MoviesCardList({ cardsData, type }) {
             key = {card._id}
           />)
         })}
-      </div>
+      </ul>
     </div>
   )
 }

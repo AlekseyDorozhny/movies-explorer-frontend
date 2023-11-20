@@ -53,6 +53,10 @@
   padding-right: 15px;
 }
 
+.auth__input:focus{
+  outline: gold 1px solid;
+}
+
 .auth__form{
   margin-top: 0px;
 }

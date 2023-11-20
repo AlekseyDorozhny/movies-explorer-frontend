@@ -24,7 +24,7 @@ function Login({onSubmit}) {
           <input type="email"
           className="auth__input"
           id="email-login-input"
-          placeholder=""
+          placeholder="E-mail"
           name="emailLoginForm"
           required />
           <span className="auth__error email-input-error">Какая-то ошибка</span>
@@ -36,7 +36,7 @@ function Login({onSubmit}) {
         <input type="password"
             className="auth__input"
             id="password-login-input"
-            placeholder=""
+            placeholder="Пароль"
             name="passwordLoginForm"
             required/>
           <span className="auth__error password-input-error">Какая-то ошибка</span>

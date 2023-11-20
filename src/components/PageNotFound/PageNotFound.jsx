@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 function PageNotFound() {
   return(
       <div className='page-not-found'>
-        <h2 className='page-not-found__heading'>404</h2>
+        <h1 className='page-not-found__heading'>404</h1>
         <p className='page-not-found__text'>Страница не найдена</p>
         <NavLink to='/' className={'page-not-found__link'}>Назад</NavLink>
       </div>

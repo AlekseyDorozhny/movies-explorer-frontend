@@ -12,7 +12,7 @@ function MoviesCard({movieImage, movieName, length, savedStatus, type}) {
   );
 
   return(
-    <div className='movies-card'>
+    <li className='movies-card'>
       {(type !== 'savedMovies')?
        <div className='movies-card__image-container'>
        <img className='movies-card__image'
@@ -33,12 +33,12 @@ function MoviesCard({movieImage, movieName, length, savedStatus, type}) {
       }
 
       <div className='movies-card__info-container'>
-        <h3 className='movies-card__name'>{movieName}</h3>
+        <h2 className='movies-card__name'>{movieName}</h2>
         <div className='movies-card__length'>
           <p className='movies-card__length-text'>{length}</p>
         </div>
       </div>
-    </div>
+    </li>
   )
 }
 

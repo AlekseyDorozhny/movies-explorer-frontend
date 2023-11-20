@@ -13,6 +13,7 @@
   margin-bottom: 22px;
   margin-right: 20px;
   margin-left: 0;
+  text-decoration: none;
 }
 
 .footer__text_type_year{
@@ -20,9 +21,15 @@
 }
 
 .footer__text_type_link{
+  margin-left: 20px;
   color: white;
-  text-decoration: none;
   transition: opacity 0.3s;
+}
+
+.footer__link{
+  color: white;
+  transition: opacity 0.3s;
+  margin-top: 5px;
 }
 
 .footer__text_type_link:hover{
@@ -31,16 +38,21 @@
 
 
 .footer__container{
+  margin: auto;
   padding-top: 8px;
   display: flex;
   border-top: 1px solid #424242;
-  width: 100%;
+  width: 97%;
   justify-content: space-between;
   align-items: center;
+
 }
 
 .footer__group-container{
   display: flex;
+  padding: 0;
+  list-style-type: none;
+  margin-top: 0;
 }
 
 .footer__text:last-of-type{

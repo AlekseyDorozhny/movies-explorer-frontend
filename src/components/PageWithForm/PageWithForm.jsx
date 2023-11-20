@@ -9,7 +9,7 @@ function PageWithForm({name, heading, children, buttonText, subtitleText, linkTe
       <NavLink to='/' className='auth__logo-link'>
         <img className='auth__logo' src= {headerLogo} alt='Логотип Movie Explorer'/>
       </NavLink>
-      <h2 className="auth__heading">{heading}</h2>
+      <h1 className="auth__heading">{heading}</h1>
       <form className="auth__form" name={`${name}Form`} method="post" onSubmit={onSubmit}>
         <div className="auth__inputs-container">
           {children}

@@ -18,7 +18,7 @@ function register({onSubmit}) {
           <input type="text"
           className="auth__input"
           id="name-register-input"
-          placeholder=""
+          placeholder="Имя"
           name="nameRegisterForm"
           required />
           <span className="auth__error email-input-error">Какая-то ошибка</span>
@@ -30,7 +30,7 @@ function register({onSubmit}) {
           <input type="email"
           className="auth__input"
           id="email-register-input"
-          placeholder=""
+          placeholder="E-mail"
           name="emailregisterForm"
           required />
           <span className="auth__error email-input-error">Какая-то ошибка</span>
@@ -42,7 +42,7 @@ function register({onSubmit}) {
           <input type="password"
           className="auth__input"
           id="password-register-input"
-          placeholder=""
+          placeholder="Пароль"
           name="passwordregisterForm"
           required/>
         <span className="auth__error password-input-error">Какая-то ошибка</span>

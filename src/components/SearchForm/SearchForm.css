@@ -4,6 +4,12 @@
   justify-content: space-between;
   margin: auto;
   margin-top: 65px;
+  flex-direction: column;
+}
+
+.search-form__container{
+  display: flex;
+  width: 100%;
   column-gap: 10px;
 }
 
@@ -44,7 +50,7 @@
 }
 
 @media screen and (max-width: 800px) {
-  .search-form{
+  .search-form__container{
     width: 91%;
   }
 }
