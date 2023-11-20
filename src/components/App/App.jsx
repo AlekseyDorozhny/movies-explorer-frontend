@@ -28,6 +28,11 @@ React.useEffect(() => {
     navigate('/', {replace: true});
   }
 
+  function handleLogoutSubmit() {
+    console.log('выхожу')
+    changeLoggedStatus(false);
+    navigate('/', {replace: true});
+  }
   return (
     <div className="App">
       <Routes>
@@ -60,6 +65,7 @@ React.useEffect(() => {
         loggedIn={loggedIn}
         burgerStatus={burgerStatus}
         onBurger={onBurger}
+        onLogoutClick={handleLogoutSubmit}
         />}
         />
         <Route path='/signin'

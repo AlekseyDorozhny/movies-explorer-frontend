@@ -6,7 +6,7 @@ function SearchForm() {
   return(
     <form className="search-form" name='SearchForm' method="post">
       <label className="search-form__field">
-        <input type="film"
+        <input type="text"
         className="search-form__input"
         id="search-form-input"
         placeholder="Фильм"

@@ -54,7 +54,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 450px) {
   .portfolio__heading{
     font-size: 14px;
     font-weight: 400;

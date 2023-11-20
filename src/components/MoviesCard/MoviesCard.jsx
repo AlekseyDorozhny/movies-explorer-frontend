@@ -34,8 +34,8 @@ function MoviesCard({movieImage, movieName, length, savedStatus, type}) {
 
       <div className='movies-card__info-container'>
         <h3 className='movies-card__name'>{movieName}</h3>
-        <div className='movie-card__length'>
-          <p className='movie-card__length-text'>{length}</p>
+        <div className='movies-card__length'>
+          <p className='movies-card__length-text'>{length}</p>
         </div>
       </div>
     </div>

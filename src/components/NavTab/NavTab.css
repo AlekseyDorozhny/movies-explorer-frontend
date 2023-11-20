@@ -1,6 +1,16 @@
 .navTab {
   display: flex;
   margin-top: 151px;
+  padding: 0;
+}
+
+.navTab__item{
+  list-style-type: none;
+  margin-right: 10px;
+}
+
+.navTab__item:last-child{
+  margin-right: 0px;
 }
 
 .navTab__button{
@@ -11,7 +21,6 @@
   border-radius: 10px;
   width: 96px;
   height: 36px;
-  margin-right: 10px;
   text-align: center;
   text-decoration: none;
   color: white;
@@ -22,10 +31,6 @@
 
 .navTab__button:hover{
   opacity: 0.7;
-}
-
-.navTab__button:last-child{
-  margin-right: 0px;
 }
 
 @media screen and (max-width: 768px) {
@@ -44,6 +49,9 @@
     border-radius: 6px;
     width: 82px;
     height: 26px;
+  }
+
+  .navTab__item{
     margin-right: 6px;
   }
 }

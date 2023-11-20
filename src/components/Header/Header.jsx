@@ -8,7 +8,6 @@ import { NavLink } from 'react-router-dom';
 
 function Header({loggedIn, burgerStatus, onBurger}) {
 
-
   return(
     <header className='header'>
       <NavLink to='/' className="header__nav-link"><img className='header__logo' src= {headerLogo} alt='Логотип Movie Explorer'/></NavLink>

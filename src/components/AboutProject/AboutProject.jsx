@@ -3,7 +3,7 @@ import './AboutProject.css';
 
 function AboutProject() {
   return(
-      <div className='about-Project' id="about-Project">
+      <section className='about-Project' id="about-Project">
         <h2 className='about-Project__heading'>О проекте</h2>
           <div className='about-Project__items'>
             <div className='about-Project__item'>
@@ -21,7 +21,7 @@ function AboutProject() {
             <p className='about-Project__plank-subtext'>Back-end</p>
             <p className='about-Project__plank-subtext'>Front-end</p>
           </div>
-      </div>
+      </section>
   )
 }
 

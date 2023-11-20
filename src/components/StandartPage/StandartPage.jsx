@@ -7,7 +7,9 @@ function StandartPage({element: Component, ...props}) {
   return(
     <>
     <Header loggedIn={props.loggedIn} onBurger={props.onBurger} burgerStatus={props.burgerStatus}/>
-    <Component {...props} />
+    <main>
+      <Component {...props} />
+    </main>
     <Footer />
     </>
   )

@@ -1,7 +1,7 @@
 .profile{
   display: flex;
   flex-direction: column;
-  margin-top: 38px;
+  margin-top: 55px;
   align-items: center;
 }
 
@@ -36,9 +36,19 @@
   font-size: 13px;
   font-weight: 400;
   margin-bottom: 4px;
+  background: none;
+  border: none;
+  transition: opacity 0.3s;
 }
 
+.profile__link:hover{
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+
 .profile__link_type_red{
+  margin-top: 14px;
   color: #EE3465;
 }
 
@@ -57,7 +67,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 430px) {
   .profile__elements{
     width: 260px;
   }

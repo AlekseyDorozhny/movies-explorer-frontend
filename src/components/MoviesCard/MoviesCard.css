@@ -72,7 +72,7 @@
   height: 18px;
 }
 
-.movie-card__length{
+.movies-card__length{
   width: 52px;
   height: 18px;
   border-radius: 3px;
@@ -124,7 +124,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 400px) {
   .movies-card{
     width: 300px;
   }

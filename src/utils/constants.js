@@ -1,6 +1,6 @@
-import firstMovieImage from '../images/1 movie.png'
-import secondMovieImage from '../images/2 movie.png'
-import thirdMovieImage from '../images/3 movie.png'
+import firstMovieImage from '../images/1movie.png'
+import secondMovieImage from '../images/2movie.png'
+import thirdMovieImage from '../images/3movie.png'
 
 const moviesData = [
   {

@@ -2,9 +2,9 @@ import React from 'react';
 import './Profile.css';
 
 import Header from '../Header/Header';
-function Profile({ loggedIn, burgerStatus, onBurger }) {
+function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick }) {
   return(
-    <>
+    <main>
       <Header
       loggedIn = {loggedIn}
       burgerStatus={burgerStatus}
@@ -21,9 +21,9 @@ function Profile({ loggedIn, burgerStatus, onBurger }) {
           <p className='profile__element'>pochta@yandex.ru</p>
         </div>
         <p className='profile__link'>Редактировать</p>
-        <p className='profile__link profile__link_type_red'>Выйти из аккаунта</p>
+        <button  type='button' className='profile__link profile__link_type_red' onClick={onLogoutClick}>Выйти из аккаунта</button>
       </div>
-    </>
+    </main>
   )
 }
 

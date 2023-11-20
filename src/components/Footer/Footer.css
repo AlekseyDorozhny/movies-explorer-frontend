@@ -11,7 +11,24 @@
   font-weight: 400;
   line-height: normal;
   margin-bottom: 22px;
+  margin-right: 20px;
+  margin-left: 0;
 }
+
+.footer__text_type_year{
+  color: white;
+}
+
+.footer__text_type_link{
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.footer__text_type_link:hover{
+  opacity: 0.7;
+}
+
 
 .footer__container{
   padding-top: 8px;
@@ -19,15 +36,7 @@
   border-top: 1px solid #424242;
   width: 100%;
   justify-content: space-between;
-}
-
-.footer__text{
-  color: #FFF;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: normal;
-  margin-left: 0;
-  margin-right: 20px;
+  align-items: center;
 }
 
 .footer__group-container{

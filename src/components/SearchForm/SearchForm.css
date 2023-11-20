@@ -43,3 +43,8 @@
   cursor: pointer;
 }
 
+@media screen and (max-width: 800px) {
+  .search-form{
+    width: 91%;
+  }
+}
