@@ -80,7 +80,7 @@
   height: 327px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 890px) {
   .aboutMe{
     width: 92%;
   }
@@ -125,7 +125,7 @@
   }
 }
 
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 635px) {
 
   .aboutMe{
     width: 99%;

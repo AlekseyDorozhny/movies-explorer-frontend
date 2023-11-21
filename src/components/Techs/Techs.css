@@ -75,11 +75,11 @@
 
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 890px) {
 
   .techs{
-    padding-left: 2.8%;
-    padding-right: 2.8%;
+    padding-left: 2.6%;
+    padding-right: 2.6%;
   }
 
   .techs__heading{
@@ -121,7 +121,7 @@
   }
 }
 
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 650px) {
 
   .techs{
     padding-left: 3%;

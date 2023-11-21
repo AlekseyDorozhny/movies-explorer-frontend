@@ -31,7 +31,7 @@
 
 @media screen and (max-width: 768px) {
   .page-not-found{
-    margin-top: 407px;
+    margin-top: 160px;
   }
 
   .page-not-found__text{
@@ -41,7 +41,7 @@
 
 @media screen and (max-width: 320px) {
   .page-not-found{
-    margin-top: 329px;
+    margin-top: 83px;
   }
 
   .page-not-found__text{

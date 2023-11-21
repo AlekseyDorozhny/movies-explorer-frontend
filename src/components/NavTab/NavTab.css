@@ -35,13 +35,13 @@
 
 @media screen and (max-width: 768px) {
   .navTab {
-    margin-top: 314px;
+    margin-top: 160px;
   }
 }
 
 @media screen and (max-width: 580px) {
   .navTab {
-    margin-top: 212px;
+    margin-top: 60px;
   }
 
   .navTab__button{

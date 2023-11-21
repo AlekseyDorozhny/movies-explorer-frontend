@@ -7,12 +7,11 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 import {savedMoviesData} from '../../utils/constants'
 
-function Movies() {
+function SavedMovies() {
   return(
     <div className='movies'>
       <div className='movies__head-panel'>
         <SearchForm />
-        <FilterCheckbox />
       </div>
       <MoviesCardList
       cardsData = {savedMoviesData}
@@ -22,4 +21,4 @@ function Movies() {
   )
 }
 
-export default Movies;
+export default SavedMovies;

@@ -7,7 +7,7 @@
   width: 100%;
   margin-top: 80px;
   display: grid;
-  grid-template-columns: 32% 32% 32%;
+  grid-template-columns: repeat(3, 31.5%);
   flex-wrap: wrap;
   column-gap: 30px;
   row-gap: 47px;

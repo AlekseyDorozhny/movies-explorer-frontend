@@ -1,0 +1,57 @@
+.movies{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-bottom: 80px;
+  align-items: center;
+}
+
+.movies__head-panel{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  border-bottom: 1px solid #424242;
+  padding-bottom: 10px;
+}
+
+.movies__button{
+  margin: 61px auto 80px;
+  padding-top: 5px;
+  background: none;
+  width: 320px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid #424242;
+  color: #FFF;
+  font-size: 12px;
+  font-weight: 500;
+  transition: opacity 0.3s;
+}
+
+.movies__button:hover{
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 400px) {
+  .movies__button{
+    width: 240px;
+    height: 36px;
+    margin-bottom: 115px;
+  }
+
+}
+
+@media screen and (max-width: 770px) {
+  .movies{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-bottom: 15px;
+    align-items: center;
+  }
+
+}
