@@ -1,7 +1,7 @@
 .profile{
   display: flex;
   flex-direction: column;
-  margin-top: 55px;
+  margin-top: 60px;
   align-items: center;
 }
 
@@ -55,7 +55,7 @@
 @media screen and (max-width: 768px) {
 
   .profile{
-    margin-top: 218px;
+    margin-top: 222px;
   }
 
   .profile__greetings{
@@ -81,6 +81,6 @@
   }
 
   .profile{
-    margin-top: 50px;
+    margin-top: 54px;
   }
 }

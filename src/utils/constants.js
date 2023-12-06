@@ -104,6 +104,21 @@ const savedMoviesData = [
     savedStatus: true,
     _id: 1211,
   },
+  // {
+  //   image: firstMovieImage,
+  //   name: '33 слова о дизайне',
+  //   length: '1ч 17м',
+  //   savedStatus: true,
+  //   _id: 1111,
+  // },
+  // {
+  //   image: secondMovieImage,
+  //   name: 'Киноальманах «100 лет дизайна»',
+  //   length: '1ч 17м',
+  //   savedStatus: true,
+  //   _id: 1211,
+  // },
+
 ]
 
 export {moviesData, savedMoviesData};

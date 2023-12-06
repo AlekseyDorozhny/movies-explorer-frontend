@@ -92,8 +92,8 @@
 }
 
 .navigation__burger-container-icon{
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   background: none;
   border: none;
   background-image: url('../../images/burgerIcon.svg');
@@ -134,6 +134,24 @@
 
 .navigation__link_active{
   font-weight: 500;
+}
+
+@media screen and (max-width: 1150px) {
+  .navigation{
+    width: 61%;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .navigation{
+    width: 62%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .navigation{
+    width: 65%;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -266,6 +284,12 @@
 
   .navigation{
     height: 67px;
+  }
+
+  .navigation__burger-container-icon{
+    width: 34px;
+    height: 35px;
+    margin-right: 5px;
   }
 }
 

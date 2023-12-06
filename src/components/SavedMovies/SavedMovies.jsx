@@ -9,7 +9,7 @@ import {savedMoviesData} from '../../utils/constants'
 
 function SavedMovies() {
   return(
-    <div className='movies'>
+    <div className='movies movies_type_saved'>
       <div className='movies__head-panel'>
         <SearchForm />
       </div>

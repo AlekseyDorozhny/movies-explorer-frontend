@@ -10,7 +10,7 @@
   grid-template-columns: repeat(3, 31.5%);
   flex-wrap: wrap;
   column-gap: 30px;
-  row-gap: 47px;
+  row-gap: 46px;
   padding: 0;
 }
 

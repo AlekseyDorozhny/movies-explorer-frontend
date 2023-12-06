@@ -59,6 +59,10 @@
 }
 
 @media screen and (max-width: 768px) {
+  .footer{
+    width: 93%;
+  }
+
   .footer__container{
     width: 100%;
   }
