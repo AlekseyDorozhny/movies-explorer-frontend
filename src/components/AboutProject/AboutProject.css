@@ -1,0 +1,150 @@
+.about-Project{
+  text-align: start;
+  width: 95%;
+}
+
+.about-Project__heading{
+  font-weight: 400;
+  font-size: 22px;
+  margin-top: 110px;
+  margin-bottom: 53px;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #DADADA;
+  letter-spacing: -0.88px;
+}
+
+.about-Project__items{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+}
+
+.about-Project__item-title{
+  font-size: 20px;
+  margin-bottom: 26px;
+  letter-spacing: -0.8px;
+  font-weight: 400;
+}
+
+.about-Project__item-subtitle{
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 110px;
+}
+
+.about-Project__plank{
+  display: grid;
+  text-align: center;
+  align-items: center;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 36px 36px;
+  margin-bottom: 110px;
+}
+
+.about-Project__plank-text{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.about-Project__plank-text_type_green{
+  color: black;
+  background-color: #3DDC84;
+}
+
+.about-Project__plank-text_type_grey{
+  background-color: #303030;
+}
+
+.about-Project__plank-subtext{
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 500;
+  color: #8B8B8B;
+}
+
+@media screen and (max-width: 768px) {
+  .about-Project{
+    width: 92%;
+  }
+
+  .about-Project__items{
+    column-gap: 31px;
+  }
+
+  .about-Project__heading{
+    margin-top: 94px;
+    margin-bottom: 51px;
+    padding-bottom: 23px;
+  }
+
+  .about-Project__item-title{
+    margin-bottom: 22px;
+  }
+
+  .about-Project__item-subtitle{
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 94px;
+  }
+
+  .about-Project__plank{
+    grid-template-columns: 21% 79%;
+    grid-template-rows: 36px 36px;
+    margin-bottom: 110px;
+  }
+}
+
+@media screen and (max-width: 470px) {
+
+  .about-Project{
+    width: 97%;
+  }
+
+  .about-Project__items{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about-Project__heading{
+    margin-top: 71px;
+    margin-bottom: 44px;
+    padding-bottom: 28px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+
+  .about-Project__item-title{
+    font-size: 18px;
+    margin-bottom: 16px;
+    letter-spacing: -0.72px;
+    line-height: normal;
+  }
+
+  .about-Project__item-subtitle{
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 39px;
+  }
+
+  .about-Project__plank{
+    grid-template-columns: 35.3% auto;
+    grid-template-rows: 35px 23px;
+    margin-bottom: 110px;
+    margin-top: 22px;
+  }
+
+  .about-Project__plank-text{
+    font-size: 11px;
+    line-height: normal;
+  }
+
+  .about-Project__plank-subtext{
+    font-size: 11px;
+    line-height: normal;
+  }
+}

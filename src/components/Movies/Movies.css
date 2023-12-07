@@ -1,0 +1,67 @@
+.movies{
+  width: 89%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-bottom: 80px;
+  align-items: center;
+}
+
+.movies__head-panel{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  border-bottom: 1px solid #424242;
+  padding-bottom: 10px;
+}
+
+.movies__button{
+  margin: auto;
+  margin-top: 45px;
+  margin-bottom: 15px;
+  padding-top: 5px;
+  background: none;
+  width: 320px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid #424242;
+  color: #FFF;
+  font-size: 12px;
+  font-weight: 500;
+  transition: opacity 0.3s;
+}
+
+.movies__button:hover{
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 770px) {
+  .movies{
+    width: 92%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-bottom: 15px;
+    align-items: center;
+  }
+
+  .movies__button{
+    margin-top: 42px;
+    margin-bottom: 80px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .movies{
+    width: 95%;
+  }
+
+  .movies__button{
+    margin-top: 43px;
+    width: 240px;
+    height: 36px;
+    margin-bottom: 114px;
+  }
+}
