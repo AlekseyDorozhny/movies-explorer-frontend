@@ -4,9 +4,20 @@ import PageWithForm from "../PageWithForm/PageWithForm.jsx";
 
 function Login({onSubmit}) {
 
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+  }
+
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
-    onSubmit();
+    onSubmit({email, password});
   }
 
   return (
@@ -26,7 +37,9 @@ function Login({onSubmit}) {
           id="email-login-input"
           placeholder="E-mail"
           name="emailLoginForm"
-          required />
+          required
+          onChange={handleEmailChange}
+          value={email}/>
           <span className="auth__error email-input-error">Какая-то ошибка</span>
         </label>
       </div>
@@ -38,7 +51,9 @@ function Login({onSubmit}) {
             id="password-login-input"
             placeholder="Пароль"
             name="passwordLoginForm"
-            required/>
+            required
+            onChange={handlePasswordChange}
+            value={password}/>
           <span className="auth__error password-input-error">Какая-то ошибка</span>
       </label>
       </div>

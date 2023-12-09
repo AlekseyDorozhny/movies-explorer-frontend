@@ -13,19 +13,52 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 
+import mainApi from "../../utils/MainApi";
+
 function App() {
-  const [loggedIn, changeLoggedStatus] = React.useState(false)
-  const [burgerStatus, onBurger] = React.useState(false)
+  const [loggedIn, changeLoggedStatus] = React.useState(false);
+  const [burgerStatus, onBurger] = React.useState(false);
 
-React.useEffect(() => {
-  console.log(burgerStatus)
-},[burgerStatus])
-  const navigate = useNavigate();
+  React.useEffect(() => {
+    console.log(burgerStatus)
+  },[burgerStatus])
+    const navigate = useNavigate();
 
-  function handleLoginSubmit() {
+  function tokenCheck() {
+    console.log('проверяю токен')
+    console.log(document.cookie)
+    console.log(localStorage.getItem('jwt'));
+    if (localStorage.getItem('jwt')){
+      mainApi.tokenCheck()
+      .then((res)=> {
+        changeLoggedStatus(true)
+        navigate('/', {replace: true})
+        return
+      })
+        .catch((err) => {console.log(err)})
+    }
+  }
+
+  function handleRegisterSubmit({name, email, password}) {
+    console.log('регистрирую')
+    mainApi.registration({name, email, password}).then(() => {
+      navigate('/signin', {replace: true});
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  function handleLoginSubmit({email, password}) {
     console.log('захожу')
-    changeLoggedStatus(true);
-    navigate('/', {replace: true});
+    mainApi.login({email, password}).then((res) => {
+      console.log(res)
+      if (res){
+        tokenCheck()
+      }
+      console.log("Что-то не так с токеном")
+    })
+    .catch((err) => {console.log(err)})
   }
 
   function handleLogoutSubmit() {
@@ -74,7 +107,9 @@ React.useEffect(() => {
         />}
         />
         <Route path='/signup'
-        element={<Register />}
+        element={<Register
+        onSubmit={handleRegisterSubmit}
+        />}
         />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
