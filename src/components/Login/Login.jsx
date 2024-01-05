@@ -51,6 +51,7 @@ function Login({onSubmit}) {
             id="password-login-input"
             placeholder="Пароль"
             name="passwordLoginForm"
+            autoComplete="carrentPassword"
             required
             onChange={handlePasswordChange}
             value={password}/>

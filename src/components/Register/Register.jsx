@@ -70,8 +70,10 @@ function Register({onSubmit}) {
           className="auth__input"
           id="password-register-input"
           placeholder="Пароль"
-          name="passwordregisterForm"
+          name="passwordRegisterForm"
+          autoComplete="newPassword"
           required
+
           onChange={handlePasswordChange}
           value={password}/>
         <span className="auth__error password-input-error">Какая-то ошибка</span>

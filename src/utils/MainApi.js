@@ -18,45 +18,50 @@ class MainApi {
       headers: this.headers,
       body: JSON.stringify({name, email, password}),
     })
-    .then((res) => {this._checkResponse(res)})
+    .then((res) => this._checkResponse(res))
+
   };
 
   login({email, password}) {
     return fetch(`${this.baseUrl}/signin`, {
       method: 'POST',
       credentials: 'include',
+      withCredentials: true,
       headers: this.headers,
-      body: JSON.stringify({email, password}),
+      body: JSON.stringify({email, password})
     })
-    .then((res) => {this._checkResponse(res)})
+    .then((res) => this._checkResponse(res))
     .then((data) => {
+      console.log(data)
       if (data){
-        localStorage.setItem('jwt', 'jwt in cookies');
+        localStorage.setItem('jwt', data.token);
         return data;
       } else {
+        console.log('Логин: Ответ не пришел')
         return;
       }
      })
   };
 
-  tokenCheck() {
+  tokenCheck(token) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'GET',
       credentials: 'include',
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
     })
-    .then((res) => {this._checkResponse(res)})
-  };
+    .then((res) => this._checkResponse(res))
+  }
 
-  logout({name, email, password}) {
+  logout() {
     return fetch(`${this.baseUrl}/signout`, {
       method: 'POST',
       credentials: 'include',
       headers: this.headers,
-      body: JSON.stringify({name, email, password}),
     })
-    .then((res) => {this._checkResponse(res)})
-  };
+  }
 
   updateProfile() {
 
@@ -71,9 +76,8 @@ class MainApi {
 const mainApi = new MainApi({
   baseUrl: 'http://127.0.0.1:3000',
   headers: {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
   }
 });
 
 export default mainApi;
-

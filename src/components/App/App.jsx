@@ -3,6 +3,9 @@ import {Route, Routes, useNavigate} from 'react-router-dom';
 
 import './App.css';
 
+import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
+import ProtectedRouteProfileElement from "../../ProtectedRouteProfile/ProtectedRouteProfile";
+
 import Main from '../Main/Main';
 import StandartPage from "../StandartPage/StandartPage";
 import PageNotFound from '../PageNotFound/PageNotFound';
@@ -18,26 +21,35 @@ import mainApi from "../../utils/MainApi";
 function App() {
   const [loggedIn, changeLoggedStatus] = React.useState(false);
   const [burgerStatus, onBurger] = React.useState(false);
+  const [activeName, changeActiveName] = React.useState('');
+  const [activeEmail, changeActiveEmail] = React.useState('');
 
   React.useEffect(() => {
-    console.log(burgerStatus)
   },[burgerStatus])
-    const navigate = useNavigate();
+
+  React.useEffect(() => {
+    tokenCheck();
+  },[])
+
+  const navigate = useNavigate();
 
   function tokenCheck() {
-    console.log('проверяю токен')
-    console.log(document.cookie)
-    console.log(localStorage.getItem('jwt'));
     if (localStorage.getItem('jwt')){
-      mainApi.tokenCheck()
+      console.log('проверяю токен')
+      const token = localStorage.getItem('jwt');
+      mainApi.tokenCheck(token)
       .then((res)=> {
+        console.log(res)
+        changeActiveName(res.name);
+        changeActiveEmail(res.email);
         changeLoggedStatus(true)
         navigate('/', {replace: true})
         return
       })
-        .catch((err) => {console.log(err)})
-    }
+      .catch((err) => {console.log(err)})
+    } else {console.log('Токена нет')};
   }
+
 
   function handleRegisterSubmit({name, email, password}) {
     console.log('регистрирую')
@@ -50,21 +62,26 @@ function App() {
   }
 
   function handleLoginSubmit({email, password}) {
-    console.log('захожу')
     mainApi.login({email, password}).then((res) => {
       console.log(res)
       if (res){
-        tokenCheck()
+        tokenCheck();
+      } else {
+        console.log('Что-то не так с токеном')
       }
-      console.log("Что-то не так с токеном")
     })
     .catch((err) => {console.log(err)})
   }
 
   function handleLogoutSubmit() {
     console.log('выхожу')
-    changeLoggedStatus(false);
-    navigate('/', {replace: true});
+    mainApi.logout()
+    .then((res) => {
+      localStorage.removeItem('jwt');
+      changeLoggedStatus(false);
+      navigate('/', {replace: true});
+    })
+    .catch((err) => {console.log(err)})
   }
   return (
     <div className="App">
@@ -78,15 +95,15 @@ function App() {
         />}
         />
         <Route path='/movies'
-        element={<StandartPage
-          element={Movies}
-          loggedIn={loggedIn}
-          burgerStatus={burgerStatus}
-          onBurger={onBurger}
-        />}
+          element={<ProtectedRouteElement
+            element={Movies}
+            loggedIn={loggedIn}
+            burgerStatus={burgerStatus}
+            onBurger={onBurger}
+          />}
         />
         <Route path='/saved-movies'
-        element={<StandartPage
+        element={<ProtectedRouteElement
           element={SavedMovies}
           loggedIn={loggedIn}
           burgerStatus={burgerStatus}
@@ -94,11 +111,14 @@ function App() {
         />}
         />
         <Route path='/profile'
-        element={<Profile
-        loggedIn={loggedIn}
-        burgerStatus={burgerStatus}
-        onBurger={onBurger}
-        onLogoutClick={handleLogoutSubmit}
+        element={<ProtectedRouteProfileElement
+          element = {Profile}
+          loggedIn={loggedIn}
+          burgerStatus={burgerStatus}
+          onBurger={onBurger}
+          onLogoutClick={handleLogoutSubmit}
+          name={activeName}
+          email={activeEmail}
         />}
         />
         <Route path='/signin'
