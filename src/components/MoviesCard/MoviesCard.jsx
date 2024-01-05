@@ -17,7 +17,7 @@ function MoviesCard({movieImage, movieName, length, savedStatus, type}) {
        <div className='movies-card__image-container'>
        <img className='movies-card__image'
        alt={`Постер фильма ${movieName}`}
-       src = {movieImage}
+       src = {`https://api.nomoreparties.co${movieImage}`}
        />
        <button className={cardSaveButtonClassName}>Сохранить</button>
        <div className={ cardStatusClassName }></div>
@@ -26,7 +26,7 @@ function MoviesCard({movieImage, movieName, length, savedStatus, type}) {
       <div className='movies-card__image-container'>
         <img className='movies-card__image'
         alt={`Постер фильма ${movieName}`}
-        src = {movieImage}
+        src = {`https://api.nomoreparties.co${movieImage}`}
         />
         <button type='button' className='movies-card__delete-button'></button>
       </div>
@@ -35,7 +35,7 @@ function MoviesCard({movieImage, movieName, length, savedStatus, type}) {
       <div className='movies-card__info-container'>
         <h2 className='movies-card__name'>{movieName}</h2>
         <div className='movies-card__length'>
-          <p className='movies-card__length-text'>{length}</p>
+          <p className='movies-card__length-text'>{`${length} мин`}</p>
         </div>
       </div>
     </li>

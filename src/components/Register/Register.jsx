@@ -73,7 +73,6 @@ function Register({onSubmit}) {
           name="passwordRegisterForm"
           autoComplete="newPassword"
           required
-
           onChange={handlePasswordChange}
           value={password}/>
         <span className="auth__error password-input-error">Какая-то ошибка</span>

@@ -5,17 +5,18 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 
 function MoviesCardList({ cardsData, type }) {
+
   return(
     <div className='movies-card-list'>
       <ul className='movies-card-list__container'>
         {cardsData.map((card, i) => {
           return(<MoviesCard
-            movieImage={card.image}
-            movieName={card.name}
-            length={card.length}
+            movieImage={card.image.url}
+            movieName={card.nameRU}
+            length={card.duration}
             savedStatus={card.savedStatus}
             type={type}
-            key = {card._id}
+            key = {card.id}
           />)
         })}
       </ul>

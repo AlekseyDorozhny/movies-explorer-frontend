@@ -17,6 +17,7 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 
 import mainApi from "../../utils/MainApi";
+import moviesApi from "../../utils/MoviesApi";
 
 function App() {
   const [loggedIn, changeLoggedStatus] = React.useState(false);
@@ -25,6 +26,7 @@ function App() {
   const [activeEmail, changeActiveEmail] = React.useState('');
 
   React.useEffect(() => {
+
   },[burgerStatus])
 
   React.useEffect(() => {
