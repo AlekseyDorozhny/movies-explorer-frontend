@@ -4,12 +4,12 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 
-function MoviesCardList({ cardsData, type }) {
+function MoviesCardList({ cardsData, type, numberOfVisableCards}) {
 
   return(
     <div className='movies-card-list'>
       <ul className='movies-card-list__container'>
-        {cardsData.map((card, i) => {
+        {cardsData.slice(0, numberOfVisableCards).map((card, i) => {
           return(<MoviesCard
             movieImage={card.image.url}
             movieName={card.nameRU}

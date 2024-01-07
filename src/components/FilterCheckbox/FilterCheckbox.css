@@ -7,7 +7,7 @@
 
 .filter-checkbox__button{
   border: none;
-  background: url('../../images/smalltumb.svg');
+  /* background: url('../../images/smalltumb.svg'); */
   background-size: cover;
   width: 36px;
   height: 20px;

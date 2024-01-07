@@ -15,6 +15,7 @@ function SearchForm({changeSearchParams, searchFunction}) {
     console.log('сабмичу')
     e.preventDefault();
     changeSearchParams({name: searchName, shorts: searchShorts});
+    console.log(searchName)
     searchFunction();
   }
 
@@ -37,6 +38,7 @@ function SearchForm({changeSearchParams, searchFunction}) {
       </div>
       <FilterCheckbox
       setSearchShorts = {setSearchShorts}
+      searchShorts = {searchShorts}
       />
     </form>
   )

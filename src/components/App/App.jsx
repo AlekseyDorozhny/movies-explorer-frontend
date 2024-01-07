@@ -17,7 +17,6 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 
 import mainApi from "../../utils/MainApi";
-import moviesApi from "../../utils/MoviesApi";
 
 function App() {
   const [loggedIn, changeLoggedStatus] = React.useState(false);
@@ -31,7 +30,7 @@ function App() {
 
   React.useEffect(() => {
     tokenCheck();
-  },[])
+  }, [])
 
   const navigate = useNavigate();
 

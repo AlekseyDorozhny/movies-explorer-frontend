@@ -5,6 +5,7 @@ function findMovies(data, name, shorts) {
   console.log(name)
   console.log(data)
   console.log(shorts)
+
   const filteredMovies = data.filter((item) => {
     if (shorts === false) {
       if(item.duration >= 40) {
@@ -19,7 +20,9 @@ function findMovies(data, name, shorts) {
       }
     }
   })
+
   console.log(filteredMovies)
+
   const findedMovies = filteredMovies.filter((item) => {
     const itemNameRu =  String(item.nameRU).toLowerCase().trim();
     const itemNameEn =  String(item.nameEN).toLowerCase().trim();
