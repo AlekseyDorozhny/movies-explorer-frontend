@@ -12,9 +12,9 @@ function FilterCheckbox({setSearchShorts, searchShorts}) {
 
   React.useEffect(() => {
     if (searchShorts) {
-      setCheckboxUrl('/smalltumboff.svg')
-    } else {
       setCheckboxUrl('/smalltumb.svg')
+    } else {
+      setCheckboxUrl('/smalltumboff.svg')
     }
   }, [searchShorts])
 

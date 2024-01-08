@@ -1,7 +1,7 @@
 import React from 'react';
 import './MoviesCard.css';
 
-function MoviesCard({movieImage, movieName, length, savedStatus, type}) {
+function MoviesCard({allData, movieImage, movieName, length, savedStatus, type, link, saveMovie}) {
 
   const cardStatusClassName = (
     `movies-card__checkbox ${savedStatus && 'movies-card__checkbox_active'}`
@@ -11,22 +11,31 @@ function MoviesCard({movieImage, movieName, length, savedStatus, type}) {
     `movies-card__save-button ${savedStatus && 'movies-card__save-button_unactive'}`
   );
 
+  function handleSaveClick () {
+    console.log(allData)
+    saveMovie(allData);
+  }
   return(
     <li className='movies-card'>
       {(type !== 'savedMovies')?
        <div className='movies-card__image-container'>
-       <img className='movies-card__image'
-       alt={`Постер фильма ${movieName}`}
-       src = {`https://api.nomoreparties.co${movieImage}`}
-       />
-       <button className={cardSaveButtonClassName}>Сохранить</button>
-       <div className={ cardStatusClassName }></div>
+        <a className='movies-card__link' target="_blank" href={link} rel='noreferrer'>
+          <img className='movies-card__image'
+          alt={`Постер фильма ${movieName}`}
+          src = {`https://api.nomoreparties.co${movieImage}`}
+          />
+        </a>
+        <button
+        className={cardSaveButtonClassName}
+        onClick={handleSaveClick}
+        >Сохранить</button>
+        <div className={ cardStatusClassName }></div>
      </div>
       :
       <div className='movies-card__image-container'>
         <img className='movies-card__image'
         alt={`Постер фильма ${movieName}`}
-        src = {`https://api.nomoreparties.co${movieImage}`}
+        src = {movieImage}
         />
         <button type='button' className='movies-card__delete-button'></button>
       </div>
@@ -35,7 +44,12 @@ function MoviesCard({movieImage, movieName, length, savedStatus, type}) {
       <div className='movies-card__info-container'>
         <h2 className='movies-card__name'>{movieName}</h2>
         <div className='movies-card__length'>
-          <p className='movies-card__length-text'>{`${length} мин`}</p>
+          {(length >= 60)?
+            <p className='movies-card__length-text'>{`${Math.floor(length/60)}ч ${length - Math.floor(length/60)*60}м`}</p>
+          :
+            <p className='movies-card__length-text'>{`${length}м`}</p>
+        }
+
         </div>
       </div>
     </li>

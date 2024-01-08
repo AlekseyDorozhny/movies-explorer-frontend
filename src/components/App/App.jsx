@@ -23,10 +23,7 @@ function App() {
   const [burgerStatus, onBurger] = React.useState(false);
   const [activeName, changeActiveName] = React.useState('');
   const [activeEmail, changeActiveEmail] = React.useState('');
-
-  React.useEffect(() => {
-
-  },[burgerStatus])
+  const [savedMovies, getSavedMovies] = React.useState([]);
 
   React.useEffect(() => {
     tokenCheck();
@@ -36,11 +33,9 @@ function App() {
 
   function tokenCheck() {
     if (localStorage.getItem('jwt')){
-      console.log('проверяю токен')
       const token = localStorage.getItem('jwt');
       mainApi.tokenCheck(token)
       .then((res)=> {
-        console.log(res)
         changeActiveName(res.name);
         changeActiveEmail(res.email);
         changeLoggedStatus(true)
@@ -48,12 +43,11 @@ function App() {
         return
       })
       .catch((err) => {console.log(err)})
-    } else {console.log('Токена нет')};
+    }
   }
 
 
   function handleRegisterSubmit({name, email, password}) {
-    console.log('регистрирую')
     mainApi.registration({name, email, password}).then(() => {
       navigate('/signin', {replace: true});
     })
@@ -64,7 +58,6 @@ function App() {
 
   function handleLoginSubmit({email, password}) {
     mainApi.login({email, password}).then((res) => {
-      console.log(res)
       if (res){
         tokenCheck();
       } else {
@@ -75,7 +68,6 @@ function App() {
   }
 
   function handleLogoutSubmit() {
-    console.log('выхожу')
     mainApi.logout()
     .then((res) => {
       localStorage.removeItem('jwt');
@@ -84,6 +76,20 @@ function App() {
     })
     .catch((err) => {console.log(err)})
   }
+
+  function handleSaveMovie(data) {
+    console.log(data)
+    mainApi.saveMovie(data)
+    .catch((err) => {console.log(err)})
+  }
+
+  function getSavedMoviesData() {
+    mainApi.getSavedMovies()
+    .then((res) => {
+      getSavedMovies(res);
+    })
+  }
+
   return (
     <div className="App">
       <Routes>
@@ -101,6 +107,7 @@ function App() {
             loggedIn={loggedIn}
             burgerStatus={burgerStatus}
             onBurger={onBurger}
+            saveMovie={handleSaveMovie}
           />}
         />
         <Route path='/saved-movies'
@@ -109,6 +116,8 @@ function App() {
           loggedIn={loggedIn}
           burgerStatus={burgerStatus}
           onBurger={onBurger}
+          getSavedMoviesData={getSavedMoviesData}
+          savedMovies={savedMovies}
         />}
         />
         <Route path='/profile'

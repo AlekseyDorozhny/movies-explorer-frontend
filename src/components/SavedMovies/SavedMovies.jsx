@@ -2,19 +2,24 @@ import React from 'react';
 import './SavedMovies.css';
 
 import SearchForm from '../SearchForm/SearchForm'
-import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-import {savedMoviesData} from '../../utils/constants'
+function SavedMovies({getSavedMoviesData, savedMovies}) {
 
-function SavedMovies() {
+
+  React.useEffect(() => {
+    getSavedMoviesData()
+    console.log(savedMovies)
+  }, [])
+
   return(
     <div className='movies movies_type_saved'>
       <div className='movies__head-panel'>
         <SearchForm />
       </div>
       <MoviesCardList
-      cardsData = {savedMoviesData}
+      cardsData = {savedMovies}
+      getSavedMoviesData = {getSavedMoviesData}
       type = 'savedMovies'
       />
     </div>

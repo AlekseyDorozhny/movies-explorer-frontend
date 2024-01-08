@@ -8,7 +8,7 @@ import moviesApi from '../../utils/MoviesApi';
 
 import findMovies from '../../utils/MoviesUtil';
 
-function Movies() {
+function Movies({saveMovie}) {
 
   const [moviesData, changeMoviesData] = React.useState([]);
   const [filtredMoviesData, changeFiltredMoviesData] = React.useState([]);
@@ -18,11 +18,6 @@ function Movies() {
   const [displaySize, setDisplaySize] = React.useState({
     width: window.innerWidth,
   })
-
-  React.useEffect(() => {
-    console.log('серчпарамс')
-    console.log(searchParams)
-  },[searchParams])
 
   React.useEffect(() => {
       const resize = () => {
@@ -52,7 +47,6 @@ function Movies() {
       const number = numberOfVisableCards + 3;
       setNumberOfVisableCards(number)
     }
-    console.log(width)
     if (width <= 1276) {
       const number = numberOfVisableCards + 2;
       setNumberOfVisableCards(number)
@@ -67,14 +61,11 @@ function Movies() {
       changeMoviesData(res);
     })
     .then(() => {
-      console.log(searchParams)
       const movies = findMovies(moviesData, searchParams.name, searchParams.shorts)
-      console.log(movies[0].image.url)
       changeFiltredMoviesData(movies);
     })
     .then(() => {
       changeSearchStatus(false)
-      console.log(filtredMoviesData)
     })
     .catch((err) => {console.log(err)})
 
@@ -93,12 +84,17 @@ function Movies() {
       cardsData = {filtredMoviesData}
       type = 'movies'
       numberOfVisableCards = {numberOfVisableCards}
+      saveMovie = {saveMovie}
       />
+      {(filtredMoviesData.length > numberOfVisableCards)?
       <button
       className='movies__button'
       type='button'
       onClick={getMoreCards}
       >Ещё</button>
+      : ''
+      }
+
     </div>
   )
 }
