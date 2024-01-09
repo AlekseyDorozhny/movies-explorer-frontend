@@ -78,6 +78,7 @@ function App() {
     mainApi.logout()
     .then((res) => {
       localStorage.removeItem('jwt');
+      localStorage.sremoveItem('searchingResoults');
       changeLoggedStatus(false);
       navigate('/', {replace: true});
     })

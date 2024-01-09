@@ -4,13 +4,31 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 
-function MoviesCardList({ cardsData, type, numberOfVisableCards, saveMovie, deleteMovie}) {
+function MoviesCardList({ cardsData, type, numberOfVisableCards, saveMovie, deleteMovie, isSearching}) {
+
+
+
+  const [moviesData, changeMoviesData] = React.useState(cardsData);
+
+  React.useEffect(() => {
+    changeMoviesData(cardsData)
+  }, [isSearching])
+
+  React.useEffect(() => {
+    const dataFromStorage = JSON.parse(localStorage.getItem('searchingResoults'))
+    console.log(dataFromStorage)
+    if(type === 'movies' && dataFromStorage.movies) {
+      changeMoviesData(dataFromStorage.movies)
+    }
+  }, [])
+
+
 
   return(
     <div className='movies-card-list'>
       <ul className='movies-card-list__container'>
         {(type === 'movies')?
-          cardsData.slice(0, numberOfVisableCards).map((card, i) => {
+          moviesData.slice(0, numberOfVisableCards).map((card, i) => {
             return(<MoviesCard
               allData={card}
               movieImage={card.image.url}
@@ -41,7 +59,6 @@ function MoviesCardList({ cardsData, type, numberOfVisableCards, saveMovie, dele
           />)
         })
         }
-
       </ul>
     </div>
   )

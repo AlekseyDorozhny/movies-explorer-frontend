@@ -8,6 +8,7 @@ import moviesApi from '../../utils/MoviesApi';
 
 import findMovies from '../../utils/MoviesUtil';
 
+
 function Movies({saveMovie, savedMovies, deleteMovie}) {
 
   const [moviesData, changeMoviesData] = React.useState([]);
@@ -26,6 +27,16 @@ function Movies({saveMovie, savedMovies, deleteMovie}) {
           })
       }
       window.addEventListener('resize', resize)
+
+      // const dataFromStorage =JSON.parse(localStorage.getItem('searchingResoults'))
+      // console.log('дата фром сторедж')
+      // console.log(dataFromStorage)
+      // console.log(savedMovies)
+
+      // const movies = findMovies(moviesData, dataFromStorage.name, dataFromStorage.shorts, savedMovies)
+      // console.log(movies)
+      // changeFiltredMoviesData(movies)
+
   }, [])
 
   React.useEffect(() => {
@@ -53,7 +64,7 @@ function Movies({saveMovie, savedMovies, deleteMovie}) {
     }
   }
 
-  function searchMovies() {
+  function searchMovies(params) {
     changeFiltredMoviesData([])
     changeSearchStatus(true)
     moviesApi.getMovies()
@@ -61,8 +72,12 @@ function Movies({saveMovie, savedMovies, deleteMovie}) {
       changeMoviesData(res);
     })
     .then(() => {
-      const movies = findMovies(moviesData, searchParams.name, searchParams.shorts, savedMovies)
+      const name = searchParams.name;
+      const shorts = searchParams.shorts;
+      const movies = findMovies(moviesData, name, shorts, savedMovies)
+      const savedSearchingResoults = {movies: movies, name: name, shorts: shorts}
       changeFiltredMoviesData(movies);
+      localStorage.setItem('searchingResoults', JSON.stringify(savedSearchingResoults));
     })
     .then(() => {
       changeSearchStatus(false)

@@ -1,4 +1,8 @@
 function findMovies(data, name, shorts, savedMoviesData) {
+  console.log(name)
+    console.log(shorts)
+    console.log(data)
+    console.log(savedMoviesData)
   const likedMoviesData = data.filter((item) => {
     const savedMovie = savedMoviesData.find(movie => movie.movieId === item.id)
     if (savedMovie) {
