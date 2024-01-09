@@ -103,6 +103,7 @@ class MainApi {
     })
     .then((res) => this._checkResponse(res))
   }
+
   deleteMovie(id) {
     return fetch(`${this.baseUrl}/movies/${id}`, {
       method: 'DELETE',

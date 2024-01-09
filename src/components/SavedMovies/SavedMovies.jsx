@@ -4,13 +4,7 @@ import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({getSavedMoviesData, savedMovies}) {
-
-
-  React.useEffect(() => {
-    getSavedMoviesData()
-    console.log(savedMovies)
-  }, [])
+function SavedMovies({savedMovies, deleteMovie}) {
 
   return(
     <div className='movies movies_type_saved'>
@@ -19,7 +13,7 @@ function SavedMovies({getSavedMoviesData, savedMovies}) {
       </div>
       <MoviesCardList
       cardsData = {savedMovies}
-      getSavedMoviesData = {getSavedMoviesData}
+      deleteMovie = {deleteMovie}
       type = 'savedMovies'
       />
     </div>

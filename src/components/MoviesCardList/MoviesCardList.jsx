@@ -4,7 +4,7 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 
-function MoviesCardList({ cardsData, type, numberOfVisableCards, saveMovie}) {
+function MoviesCardList({ cardsData, type, numberOfVisableCards, saveMovie, deleteMovie, savedMovies}) {
 
   return(
     <div className='movies-card-list'>
@@ -16,11 +16,12 @@ function MoviesCardList({ cardsData, type, numberOfVisableCards, saveMovie}) {
               movieImage={card.image.url}
               movieName={card.nameRU}
               length={card.duration}
-              savedStatus={card.savedStatus}
+              savedStatus={card.saved}
               type={type}
               key = {card.id}
               link={card.trailerLink}
               saveMovie = {saveMovie}
+              deleteMovie = {deleteMovie}
             />)
           })
         :
@@ -33,8 +34,11 @@ function MoviesCardList({ cardsData, type, numberOfVisableCards, saveMovie}) {
             savedStatus={card.savedStatus}
             type={type}
             key = {card._id}
+            id = {card._id}
             link={card.trailerLink}
             saveMovie = {saveMovie}
+            deleteMovie = {deleteMovie}
+            savedMovies = {savedMovies}
           />)
         })
         }

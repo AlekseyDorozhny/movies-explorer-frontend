@@ -8,7 +8,7 @@ import moviesApi from '../../utils/MoviesApi';
 
 import findMovies from '../../utils/MoviesUtil';
 
-function Movies({saveMovie}) {
+function Movies({saveMovie, savedMovies, deleteMovie}) {
 
   const [moviesData, changeMoviesData] = React.useState([]);
   const [filtredMoviesData, changeFiltredMoviesData] = React.useState([]);
@@ -61,7 +61,7 @@ function Movies({saveMovie}) {
       changeMoviesData(res);
     })
     .then(() => {
-      const movies = findMovies(moviesData, searchParams.name, searchParams.shorts)
+      const movies = findMovies(moviesData, searchParams.name, searchParams.shorts, savedMovies)
       changeFiltredMoviesData(movies);
     })
     .then(() => {
@@ -85,6 +85,8 @@ function Movies({saveMovie}) {
       type = 'movies'
       numberOfVisableCards = {numberOfVisableCards}
       saveMovie = {saveMovie}
+      deleteMovie = {deleteMovie}
+      savedMovies = {savedMovies}
       />
       {(filtredMoviesData.length > numberOfVisableCards)?
       <button

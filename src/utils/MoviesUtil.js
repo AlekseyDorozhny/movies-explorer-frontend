@@ -1,5 +1,17 @@
-function findMovies(data, name, shorts) {
-  const filteredMovies = data.filter((item) => {
+function findMovies(data, name, shorts, savedMoviesData) {
+
+  const likedMoviesData = data.filter((item) => {
+    const savedMovie = savedMoviesData.find(movie => movie.movieId === item.id)
+    if (savedMovie) {
+      item.saved = true;
+      item.savedMovieId = savedMovie._id
+    } else {
+      item.saved = false;
+    }
+    return item
+  })
+
+  const filteredMoviesByLenght = likedMoviesData.filter((item) => {
     if (shorts === false) {
       if(item.duration >= 40) {
         return item
@@ -11,7 +23,7 @@ function findMovies(data, name, shorts) {
     }
   })
 
-  const findedMovies = filteredMovies.filter((item) => {
+  const findedMovies = filteredMoviesByLenght.filter((item) => {
     const itemNameRu =  String(item.nameRU).toLowerCase().trim();
     const itemNameEn =  String(item.nameEN).toLowerCase().trim();
     const searchingName = String(name).toLowerCase();
@@ -21,7 +33,6 @@ function findMovies(data, name, shorts) {
       return item
     }
   });
-  console.log(findedMovies)
   return findedMovies
 }
 

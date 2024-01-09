@@ -1,20 +1,42 @@
 import React from 'react';
 import './MoviesCard.css';
 
-function MoviesCard({allData, movieImage, movieName, length, savedStatus, type, link, saveMovie}) {
+import {CurrentSavedMovieContext} from '../../contexts/CurrentSavedMovie.js'
+
+function MoviesCard(
+  {allData, movieImage, movieName, length, savedStatus, type, link, saveMovie, deleteMovie, id}) {
+
+  const currentSavedMovie = React.useContext(CurrentSavedMovieContext)
+
+  const [localSavedStatus, changeLocalSavedStatus] = React.useState(savedStatus);
+  const [savedMovieId, changeSavedMovieId] = React.useState(allData.savedMovieId);
 
   const cardStatusClassName = (
-    `movies-card__checkbox ${savedStatus && 'movies-card__checkbox_active'}`
+    `movies-card__checkbox ${localSavedStatus && 'movies-card__checkbox_active'}`
   );
 
   const cardSaveButtonClassName = (
-    `movies-card__save-button ${savedStatus && 'movies-card__save-button_unactive'}`
+    `movies-card__save-button ${localSavedStatus && 'movies-card__save-button_unactive'}`
   );
 
-  function handleSaveClick () {
-    console.log(allData)
-    saveMovie(allData);
+  function handleSaveClick() {
+    saveMovie(allData)
+    changeLocalSavedStatus(true)
+    changeSavedMovieId(currentSavedMovie._id)
   }
+
+  function findSavedCardId() {
+
+  }
+
+  function handleCheckboxClick() {
+    // deleteMovie(savedMovieId)
+  }
+
+  function handleDeleteClick() {
+    deleteMovie(id);
+  }
+
   return(
     <li className='movies-card'>
       {(type !== 'savedMovies')?
@@ -29,7 +51,9 @@ function MoviesCard({allData, movieImage, movieName, length, savedStatus, type, 
         className={cardSaveButtonClassName}
         onClick={handleSaveClick}
         >Сохранить</button>
-        <div className={ cardStatusClassName }></div>
+        <div className={ cardStatusClassName }
+        onClick={handleCheckboxClick}
+        ></div>
      </div>
       :
       <div className='movies-card__image-container'>
@@ -37,7 +61,11 @@ function MoviesCard({allData, movieImage, movieName, length, savedStatus, type, 
         alt={`Постер фильма ${movieName}`}
         src = {movieImage}
         />
-        <button type='button' className='movies-card__delete-button'></button>
+        <button
+        type='button'
+        className='movies-card__delete-button'
+        onClick={handleDeleteClick}
+        ></button>
       </div>
       }
 
