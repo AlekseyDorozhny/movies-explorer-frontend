@@ -12,10 +12,8 @@ function SearchForm({changeSearchParams, searchFunction}) {
   }
 
   function handleSearch(e) {
-    console.log('сабмичу')
     e.preventDefault();
     changeSearchParams({name: searchName, shorts: searchShorts});
-    console.log(searchName)
     searchFunction();
   }
 

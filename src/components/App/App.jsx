@@ -7,7 +7,6 @@ import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
 import ProtectedRouteProfileElement from "../../ProtectedRouteProfile/ProtectedRouteProfile";
 
 import {CurrentUserContext} from '../../contexts/CurrentUserContext.js';
-import {CurrentSavedMovieContext} from '../../contexts/CurrentSavedMovie.js'
 
 import Main from '../Main/Main';
 import StandartPage from "../StandartPage/StandartPage";
@@ -27,8 +26,7 @@ function App() {
   const [currentUser, changeCurrentUser] = React.useState({});
   const [activeName, changeActiveName] = React.useState('');
   const [activeEmail, changeActiveEmail] = React.useState('');
-  const [savedMovies, getSavedMovies] = React.useState([]);
-  const [savedMovie, changeSavedMovie] = React.useState({});
+  const [savedMovies, setSavedMovies] = React.useState([]);
 
   React.useEffect(() => {
     tokenCheck();
@@ -88,85 +86,82 @@ function App() {
 
   function handleSaveMovie(data) {
     mainApi.saveMovie(data)
-    .then((res) => {changeSavedMovie(res)})
     .then(() => {getSavedMoviesData()})
     .catch((err) => {console.log(err)})
   }
 
   function getSavedMoviesData() {
     mainApi.getSavedMovies()
-    .then((res) => {
-      getSavedMovies(res);
-    })
+    .then((res) => {setSavedMovies(res)})
     .catch((err) => {console.log(err)})
   }
 
   function handleDeleteMovie(id) {
-    mainApi.deleteMovie(id)
+    console.log(id)
+    const savedMovie = savedMovies.find(item => item.movieId === id);
+    console.log(savedMovie)
+    mainApi.deleteMovie(savedMovie._id)
     .then(() => {getSavedMoviesData()})
     .catch((err) => {console.log(err)})
   }
 
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <CurrentSavedMovieContext.Provider value={savedMovie}>
-          <div className="App">
-            <Routes>
-              <Route path='/'
-              element={<StandartPage
-                element={Main}
-                loggedIn={loggedIn}
-                burgerStatus={burgerStatus}
-                onBurger={onBurger}
-              />}
-              />
-              <Route path='/movies'
-                element={<ProtectedRouteElement
-                  element={Movies}
-                  loggedIn={loggedIn}
-                  burgerStatus={burgerStatus}
-                  onBurger={onBurger}
-                  saveMovie={handleSaveMovie}
-                  savedMovies={savedMovies}
-                  deleteMovie={handleDeleteMovie}
-                />}
-              />
-              <Route path='/saved-movies'
-                element={<ProtectedRouteElement
-                  element={SavedMovies}
-                  loggedIn={loggedIn}
-                  burgerStatus={burgerStatus}
-                  onBurger={onBurger}
-                  savedMovies={savedMovies}
-                  deleteMovie={handleDeleteMovie}
-                />}
-              />
-              <Route path='/profile'
-              element={<ProtectedRouteProfileElement
-                element = {Profile}
-                loggedIn={loggedIn}
-                burgerStatus={burgerStatus}
-                onBurger={onBurger}
-                onLogoutClick={handleLogoutSubmit}
-                name={activeName}
-                email={activeEmail}
-              />}
-              />
-              <Route path='/signin'
-              element={<Login
-              onSubmit={handleLoginSubmit}
-              />}
-              />
-              <Route path='/signup'
-              element={<Register
-              onSubmit={handleRegisterSubmit}
-              />}
-              />
-              <Route path="*" element={<PageNotFound />} />
-            </Routes>
-          </div>
-        </CurrentSavedMovieContext.Provider>
+      <div className="App">
+        <Routes>
+          <Route path='/'
+          element={<StandartPage
+            element={Main}
+            loggedIn={loggedIn}
+            burgerStatus={burgerStatus}
+            onBurger={onBurger}
+          />}
+          />
+          <Route path='/movies'
+            element={<ProtectedRouteElement
+              element={Movies}
+              loggedIn={loggedIn}
+              burgerStatus={burgerStatus}
+              onBurger={onBurger}
+              saveMovie={handleSaveMovie}
+              savedMovies={savedMovies}
+              deleteMovie={handleDeleteMovie}
+            />}
+          />
+          <Route path='/saved-movies'
+            element={<ProtectedRouteElement
+              element={SavedMovies}
+              loggedIn={loggedIn}
+              burgerStatus={burgerStatus}
+              onBurger={onBurger}
+              savedMovies={savedMovies}
+              deleteMovie={handleDeleteMovie}
+            />}
+          />
+          <Route path='/profile'
+          element={<ProtectedRouteProfileElement
+            element = {Profile}
+            loggedIn={loggedIn}
+            burgerStatus={burgerStatus}
+            onBurger={onBurger}
+            onLogoutClick={handleLogoutSubmit}
+            name={activeName}
+            email={activeEmail}
+          />}
+          />
+          <Route path='/signin'
+          element={<Login
+          onSubmit={handleLoginSubmit}
+          />}
+          />
+          <Route path='/signup'
+          element={<Register
+          onSubmit={handleRegisterSubmit}
+          />}
+          />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </div>
     </CurrentUserContext.Provider>
   );
 }

@@ -1,40 +1,31 @@
 import React from 'react';
 import './MoviesCard.css';
 
-import {CurrentSavedMovieContext} from '../../contexts/CurrentSavedMovie.js'
-
 function MoviesCard(
-  {allData, movieImage, movieName, length, savedStatus, type, link, saveMovie, deleteMovie, id}) {
+  {allData, movieImage, movieName, length, savedStatus, type, link, saveMovie, deleteMovie}) {
 
-  const currentSavedMovie = React.useContext(CurrentSavedMovieContext)
-
-  const [localSavedStatus, changeLocalSavedStatus] = React.useState(savedStatus);
-  const [savedMovieId, changeSavedMovieId] = React.useState(allData.savedMovieId);
+  const [SavedStatus, changeSavedStatus] = React.useState(savedStatus);
 
   const cardStatusClassName = (
-    `movies-card__checkbox ${localSavedStatus && 'movies-card__checkbox_active'}`
+    `movies-card__checkbox ${SavedStatus && 'movies-card__checkbox_active'}`
   );
 
   const cardSaveButtonClassName = (
-    `movies-card__save-button ${localSavedStatus && 'movies-card__save-button_unactive'}`
+    `movies-card__save-button ${SavedStatus && 'movies-card__save-button_unactive'}`
   );
 
   function handleSaveClick() {
     saveMovie(allData)
-    changeLocalSavedStatus(true)
-    changeSavedMovieId(currentSavedMovie._id)
-  }
-
-  function findSavedCardId() {
-
-  }
-
-  function handleCheckboxClick() {
-    // deleteMovie(savedMovieId)
+    changeSavedStatus(true)
   }
 
   function handleDeleteClick() {
-    deleteMovie(id);
+    if (allData.movieId) {
+      deleteMovie(allData.movieId);
+    } else {
+      deleteMovie(allData.id);
+      changeSavedStatus(false)
+    }
   }
 
   return(
@@ -52,7 +43,7 @@ function MoviesCard(
         onClick={handleSaveClick}
         >Сохранить</button>
         <div className={ cardStatusClassName }
-        onClick={handleCheckboxClick}
+        onClick={handleDeleteClick}
         ></div>
      </div>
       :
