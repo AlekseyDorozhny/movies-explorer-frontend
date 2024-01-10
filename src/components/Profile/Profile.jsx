@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 
 import {CurrentUserContext} from '../../contexts/CurrentUserContext.js'
 
+
 function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfile}) {
 
   const currentUser = React.useContext(CurrentUserContext)
@@ -15,6 +16,11 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
   const [nameInput, setNameInput] = React.useState(currentUser.name);
   const [emailInput, setEmailInput] = React.useState(currentUser.email);
   const [isInputsWithErrors, changeInputsWithErrors] = React.useState(false);
+
+  React.useEffect(() => {
+    setNameInput(currentUser.name)
+    setEmailInput(currentUser.email)
+  }, [])
 
   const buttonClassName = (
     isInputsWithErrors? 'profile__button profile__button_inactive' : 'profile__button'
@@ -29,7 +35,6 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
   }
 
   React.useEffect(() => {
-
     if (currentUser) {
       changeUserName(currentUser.name)
       changeUserEmail(currentUser.email)
@@ -64,6 +69,8 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
               defaultValue={userName}
               onChange={handleNameInputChange}
               required
+              // minLength={2}
+              // maxLength={30}
               />
               :
               <p className='profile__element'>{userName}</p>
@@ -73,9 +80,11 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
             <p className='profile__element'>E-mail</p>
             {(isEdit)?
               <input className='profile__element'
+              type='email'
               defaultValue={userEmail}
               onChange={handleEmailInputChange}
               required
+
               />
               :
               <p className='profile__element'>{userEmail}</p>

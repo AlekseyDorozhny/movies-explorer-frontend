@@ -106,12 +106,6 @@ function App() {
   }
 
   function handleUpdateProfile(nameInput, emailInput) {
-    if (emailInput === currentUser.email) {
-      mainApi.updateProfile(nameInput)
-      .then((res) =>changeCurrentUser({name: res.name, email: res.email}))
-      .catch((err) => {console.log(err)})
-      return
-    }
     mainApi.updateProfile(nameInput, emailInput)
       .then((res) =>changeCurrentUser({name: res.name, email: res.email}))
       .catch((err) => {console.log(err)})
