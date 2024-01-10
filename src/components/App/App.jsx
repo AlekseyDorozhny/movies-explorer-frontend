@@ -24,8 +24,6 @@ function App() {
   const [loggedIn, changeLoggedStatus] = React.useState(false);
   const [burgerStatus, onBurger] = React.useState(false);
   const [currentUser, changeCurrentUser] = React.useState({});
-  const [activeName, changeActiveName] = React.useState('');
-  const [activeEmail, changeActiveEmail] = React.useState('');
   const [savedMovies, setSavedMovies] = React.useState([]);
 
   React.useEffect(() => {
@@ -43,8 +41,6 @@ function App() {
       const token = localStorage.getItem('jwt');
       mainApi.tokenCheck(token)
       .then((res)=> {
-        changeActiveName(res.name);
-        changeActiveEmail(res.email);
         changeCurrentUser({name: res.name, email: res.email})
         changeLoggedStatus(true)
         navigate('/', {replace: true})
@@ -98,14 +94,21 @@ function App() {
   }
 
   function handleDeleteMovie(id) {
-    console.log(id)
     const savedMovie = savedMovies.find(item => item.movieId === id);
-    console.log(savedMovie)
     mainApi.deleteMovie(savedMovie._id)
-    .then(() => {getSavedMoviesData()})
+    .then((res) => {
+      if (res) {
+        const newSavedMovies = savedMovies.filter(i => i.movieId !== id)
+        setSavedMovies(newSavedMovies)
+      }
+    })
     .catch((err) => {console.log(err)})
   }
 
+  function handleUpdateProfile(nameInput, emailInput) {
+    console.log(nameInput)
+    console.log(emailInput)
+  }
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -146,8 +149,7 @@ function App() {
             burgerStatus={burgerStatus}
             onBurger={onBurger}
             onLogoutClick={handleLogoutSubmit}
-            name={activeName}
-            email={activeEmail}
+            updateProfile={handleUpdateProfile}
           />}
           />
           <Route path='/signin'

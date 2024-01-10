@@ -7,13 +7,16 @@ function SearchForm({changeSearchParams, searchFunction}) {
   const [searchName, setSearchName] = React.useState('');
   const [searchShorts, setSearchShorts] = React.useState(false);
 
+  React.useEffect(() => {
+    changeSearchParams({name: searchName, shorts: searchShorts})
+  },[searchName, searchShorts])
+
   function handleNameChange(e) {
     setSearchName(e.target.value);
   }
 
-  function handleSearch(e) {
+  async function handleSearch(e) {
     e.preventDefault();
-    changeSearchParams({name: searchName, shorts: searchShorts});
     searchFunction();
   }
 

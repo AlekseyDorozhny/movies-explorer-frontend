@@ -5,7 +5,6 @@ function MoviesCard(
   {allData, movieImage, movieName, length, savedStatus, type, link, saveMovie, deleteMovie}) {
 
   const [SavedStatus, changeSavedStatus] = React.useState(savedStatus);
-  console.log(savedStatus)
 
   const cardStatusClassName = (
     `movies-card__checkbox ${SavedStatus && 'movies-card__checkbox_active'}`
@@ -18,7 +17,6 @@ function MoviesCard(
   function handleSaveClick() {
     saveMovie(allData)
     changeSavedStatus(true)
-
   }
 
   function handleDeleteClick() {

@@ -1,8 +1,31 @@
+.profile__form{
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+  align-items: center;
+}
+
 .profile{
   display: flex;
   flex-direction: column;
   margin-top: 60px;
   align-items: center;
+}
+
+.profile__button{
+  width: 80%;
+  font-size: 13px;
+  font-weight: 400;
+  color: #FFF;
+  height: 45px;
+  background-color: #3456F3;
+  border: none;
+  border-radius: 3px;
+}
+
+.profile__button_inactive{
+  background-color: #F8F8F8;
+  color: #C2C2C2;
 }
 
 .profile__greetings{
@@ -28,6 +51,11 @@
 .profile__element{
   font-size: 11px;
   font-weight: 500;
+  background: none;
+  color: white;
+  border: none;
+  padding-right: 10px;
+  text-align: right;
 }
 
 .profile__link{
@@ -55,6 +83,10 @@
 @media screen and (max-width: 768px) {
 
   .profile{
+    margin-top: 0;
+  }
+
+  .profile__form{
     margin-top: 222px;
   }
 
@@ -80,7 +112,7 @@
     margin-bottom: 350px;
   }
 
-  .profile{
+  .profile__form{
     margin-top: 54px;
   }
 }

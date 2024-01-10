@@ -32,13 +32,9 @@ class MainApi {
     })
     .then((res) => this._checkResponse(res))
     .then((data) => {
-      console.log(data)
       if (data){
         localStorage.setItem('jwt', data.token);
         return data;
-      } else {
-        console.log('Логин: Ответ не пришел')
-        return;
       }
      })
   };
@@ -64,10 +60,6 @@ class MainApi {
   }
 
   updateProfile() {
-
-  }
-
-  getUserInfo() {
 
   }
 

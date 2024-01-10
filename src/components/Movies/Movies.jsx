@@ -6,12 +6,11 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import moviesApi from '../../utils/MoviesApi';
 
-import findMovies from '../../utils/MoviesUtil';
+import { findMovies } from '../../utils/MoviesUtil';
 
 
 function Movies({saveMovie, savedMovies, deleteMovie}) {
 
-  const [moviesData, changeMoviesData] = React.useState([]);
   const [filtredMoviesData, changeFiltredMoviesData] = React.useState([]);
   const [searchParams, changeSearchParams] = React.useState({});
   const [isSearching, changeSearchStatus] = React.useState(false);
@@ -19,6 +18,29 @@ function Movies({saveMovie, savedMovies, deleteMovie}) {
   const [displaySize, setDisplaySize] = React.useState({
     width: window.innerWidth,
   })
+  const [isNotFound, setNotFound] = React.useState(false)
+
+  React.useEffect(() => {
+    const dataFromStorage =JSON.parse(localStorage.getItem('searchingResaults'))
+    if (dataFromStorage !== null) {
+      changeSearchStatus(true)
+      moviesApi.getMovies()
+      .then((res) => {
+        const movies = findMovies(res, dataFromStorage.name, dataFromStorage.shorts, savedMovies)
+        if (movies.length === 0) {
+          setNotFound(true)
+        }
+        changeFiltredMoviesData(movies);
+      })
+      .then (() => {
+        changeSearchStatus(false)
+      })
+      .catch((err) => {console.log(err)})
+      } else {
+        return
+      }
+
+  }, [])
 
   React.useEffect(() => {
       const resize = () => {
@@ -27,16 +49,6 @@ function Movies({saveMovie, savedMovies, deleteMovie}) {
           })
       }
       window.addEventListener('resize', resize)
-
-      // const dataFromStorage =JSON.parse(localStorage.getItem('searchingResoults'))
-      // console.log('дата фром сторедж')
-      // console.log(dataFromStorage)
-      // console.log(savedMovies)
-
-      // const movies = findMovies(moviesData, dataFromStorage.name, dataFromStorage.shorts, savedMovies)
-      // console.log(movies)
-      // changeFiltredMoviesData(movies)
-
   }, [])
 
   React.useEffect(() => {
@@ -64,26 +76,26 @@ function Movies({saveMovie, savedMovies, deleteMovie}) {
     }
   }
 
-  function searchMovies(params) {
+  function searchMovies() {
+    setNotFound(false)
     changeFiltredMoviesData([])
     changeSearchStatus(true)
     moviesApi.getMovies()
     .then((res) => {
-      changeMoviesData(res);
-    })
-    .then(() => {
       const name = searchParams.name;
       const shorts = searchParams.shorts;
-      const movies = findMovies(moviesData, name, shorts, savedMovies)
+      const movies = findMovies(res, name, shorts, savedMovies)
       const savedSearchingResoults = {movies: movies, name: name, shorts: shorts}
       changeFiltredMoviesData(movies);
-      localStorage.setItem('searchingResoults', JSON.stringify(savedSearchingResoults));
+      localStorage.setItem('searchingResaults', JSON.stringify(savedSearchingResoults));
+      if (movies.length === 0) {
+        setNotFound(true)
+      }
     })
     .then(() => {
       changeSearchStatus(false)
     })
     .catch((err) => {console.log(err)})
-
   }
 
   return(
@@ -95,6 +107,7 @@ function Movies({saveMovie, savedMovies, deleteMovie}) {
         />
       </div>
       {(isSearching)? <Preloader /> : ''}
+      {(isNotFound)? <p className='movies__notFound'> Ничего не найдено</p> : ''}
       <MoviesCardList
       cardsData = {filtredMoviesData}
       type = 'movies'
