@@ -12,8 +12,8 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
   const [userName, changeUserName] = React.useState('');
   const [userEmail, changeUserEmail] = React.useState('');
   const [isEdit, changeEditStatus] = React.useState(false);
-  const [nameInput, setNameInput] = React.useState('');
-  const [emailInput, setEmailInput] = React.useState('');
+  const [nameInput, setNameInput] = React.useState(currentUser.name);
+  const [emailInput, setEmailInput] = React.useState(currentUser.email);
   const [isInputsWithErrors, changeInputsWithErrors] = React.useState(false);
 
   const buttonClassName = (
@@ -29,7 +29,7 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
   }
 
   React.useEffect(() => {
-    console.log(currentUser)
+
     if (currentUser) {
       changeUserName(currentUser.name)
       changeUserEmail(currentUser.email)
@@ -45,7 +45,6 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
     e.preventDefault();
     updateProfile(nameInput, emailInput)
     changeEditStatus(false);
-
   }
 
   return(

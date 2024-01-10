@@ -14,7 +14,6 @@ class MainApi {
   registration({name, email, password}) {
     return fetch(`${this.baseUrl}/signup`, {
       method: 'POST',
-      credentials: 'include',
       headers: this.headers,
       body: JSON.stringify({name, email, password}),
     })
@@ -25,7 +24,6 @@ class MainApi {
   login({email, password}) {
     return fetch(`${this.baseUrl}/signin`, {
       method: 'POST',
-      credentials: 'include',
       withCredentials: true,
       headers: this.headers,
       body: JSON.stringify({email, password})
@@ -42,7 +40,6 @@ class MainApi {
   tokenCheck(token) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'GET',
-      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
@@ -54,13 +51,20 @@ class MainApi {
   logout() {
     return fetch(`${this.baseUrl}/signout`, {
       method: 'POST',
-      credentials: 'include',
       headers: this.headers,
     })
   }
 
-  updateProfile() {
-
+  updateProfile(name, email) {
+    return fetch(`${this.baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({name, email}),
+    })
+    .then((res) => this._checkResponse(res))
   }
 
   saveMovie(data) {

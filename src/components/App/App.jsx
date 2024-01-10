@@ -106,9 +106,17 @@ function App() {
   }
 
   function handleUpdateProfile(nameInput, emailInput) {
-    console.log(nameInput)
-    console.log(emailInput)
+    if (emailInput === currentUser.email) {
+      mainApi.updateProfile(nameInput)
+      .then((res) =>changeCurrentUser({name: res.name, email: res.email}))
+      .catch((err) => {console.log(err)})
+      return
+    }
+    mainApi.updateProfile(nameInput, emailInput)
+      .then((res) =>changeCurrentUser({name: res.name, email: res.email}))
+      .catch((err) => {console.log(err)})
   }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
