@@ -21,10 +21,12 @@ import Profile from '../Profile/Profile';
 import mainApi from "../../utils/MainApi";
 
 function App() {
+
   const [loggedIn, changeLoggedStatus] = React.useState(false);
   const [burgerStatus, onBurger] = React.useState(false);
   const [currentUser, changeCurrentUser] = React.useState({});
   const [savedMovies, setSavedMovies] = React.useState([]);
+  const [resError, changeResError] = React.useState({})
 
   React.useEffect(() => {
     tokenCheck();
@@ -44,6 +46,7 @@ function App() {
         changeCurrentUser({name: res.name, email: res.email})
         changeLoggedStatus(true)
         navigate('/', {replace: true})
+        changeResError({})
         return
       })
       .catch((err) => {console.log(err)})
@@ -53,8 +56,10 @@ function App() {
   function handleRegisterSubmit({name, email, password}) {
     mainApi.registration({name, email, password}).then(() => {
       navigate('/signin', {replace: true});
+      changeResError({})
     })
     .catch((err) => {
+      changeResError({register: err})
       console.log(err);
     })
   }
@@ -67,14 +72,17 @@ function App() {
         console.log('Что-то не так с токеном')
       }
     })
-    .catch((err) => {console.log(err)})
+    .catch((err) => {
+      changeResError({login: err})
+      console.log(err);
+    })
   }
 
   function handleLogoutSubmit() {
     mainApi.logout()
     .then((res) => {
       localStorage.removeItem('jwt');
-      localStorage.sremoveItem('searchingResoults');
+      localStorage.removeItem('searchingResoults');
       changeLoggedStatus(false);
       navigate('/', {replace: true});
     })
@@ -107,8 +115,14 @@ function App() {
 
   function handleUpdateProfile(nameInput, emailInput) {
     mainApi.updateProfile(nameInput, emailInput)
-      .then((res) =>changeCurrentUser({name: res.name, email: res.email}))
-      .catch((err) => {console.log(err)})
+      .then((res) =>{
+        changeCurrentUser({name: res.name, email: res.email})
+        changeResError({})
+      })
+      .catch((err) => {
+        console.log(err)
+        changeResError({profile: err})
+      })
   }
 
   return (
@@ -152,16 +166,19 @@ function App() {
             onBurger={onBurger}
             onLogoutClick={handleLogoutSubmit}
             updateProfile={handleUpdateProfile}
+            resError={resError}
           />}
           />
           <Route path='/signin'
           element={<Login
           onSubmit={handleLoginSubmit}
+          resError={resError}
           />}
           />
           <Route path='/signup'
           element={<Register
           onSubmit={handleRegisterSubmit}
+          resError={resError}
           />}
           />
           <Route path="*" element={<PageNotFound />} />

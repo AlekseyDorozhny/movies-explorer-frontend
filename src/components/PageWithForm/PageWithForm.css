@@ -7,6 +7,11 @@
   margin-top: 70px;
 }
 
+.auth__label{
+  display: flex;
+  flex-direction: column;
+}
+
 .auth__logo-link{
   margin: 0;
   transition: opacity 0.3s;
@@ -52,6 +57,10 @@
   padding-right: 15px;
 }
 
+.auth__input_error{
+  color: #EE3465;
+}
+
 .auth__input:focus{
   outline: gold 1px solid;
 }
@@ -78,6 +87,16 @@
   cursor: pointer;
 }
 
+.auth__save-button_disabled{
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+}
+
+.auth__save-button_disabled:hover{
+  cursor: default;
+  opacity: 1;
+}
+
 .auth__inputs-container{
   margin-top: 20px;
   min-height: 335px;
@@ -88,6 +107,15 @@
   font-size: 10px;
   font-weight: 400;
   line-height: normal;
+  min-height: 12px;
+}
+
+.auth__res-error{
+  color: #EE3465;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: normal;
+  min-height: 12px;
 }
 
 .auth__subtitle{

@@ -5,17 +5,19 @@ import Header from '../Header/Header';
 
 import {CurrentUserContext} from '../../contexts/CurrentUserContext.js'
 
+import useFormWithValidation from "../../hooks/useFormValidation.js";
 
 function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfile}) {
 
   const currentUser = React.useContext(CurrentUserContext)
+
+  const { errors, isValid, handleChange, resetForm } = useFormWithValidation();
 
   const [userName, changeUserName] = React.useState('');
   const [userEmail, changeUserEmail] = React.useState('');
   const [isEdit, changeEditStatus] = React.useState(false);
   const [nameInput, setNameInput] = React.useState(currentUser.name);
   const [emailInput, setEmailInput] = React.useState(currentUser.email);
-  const [isInputsWithErrors, changeInputsWithErrors] = React.useState(false);
 
   React.useEffect(() => {
     setNameInput(currentUser.name)
@@ -23,15 +25,17 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
   }, [])
 
   const buttonClassName = (
-    isInputsWithErrors? 'profile__button profile__button_inactive' : 'profile__button'
+    !isValid? 'profile__button profile__button_inactive' : 'profile__button'
   );
 
   function handleNameInputChange(e) {
     setNameInput(e.target.value);
+    handleChange(e)
   }
 
   function handleEmailInputChange(e) {
     setEmailInput(e.target.value);
+    handleChange(e)
   }
 
   React.useEffect(() => {
@@ -48,8 +52,8 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
 
   function editProfileHandler(e) {
     e.preventDefault();
+    resetForm()
     updateProfile(nameInput, emailInput)
-    changeEditStatus(false);
   }
 
   return(
@@ -69,13 +73,17 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
               defaultValue={userName}
               onChange={handleNameInputChange}
               required
-              // minLength={2}
-              // maxLength={30}
+              name='profileNameForm'
+              minLength={2}
+              maxLength={30}
               />
               :
               <p className='profile__element'>{userName}</p>
             }
           </label>
+          <span className={`profile__error ${errors.profileNameForm? 'auth__error_active' : ''}`}>
+          {`${errors.profileNameForm? errors.profileNameForm : ''}`}
+          </span>
           <label className='profile__elements'>
             <p className='profile__element'>E-mail</p>
             {(isEdit)?
@@ -83,17 +91,20 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
               type='email'
               defaultValue={userEmail}
               onChange={handleEmailInputChange}
+              name='profileEmailForm'
               required
-
               />
               :
               <p className='profile__element'>{userEmail}</p>
             }
           </label>
+          <span className={`profile__error ${errors.profileEmailForm? 'auth__error_active' : ''}`}>
+          {`${errors.profileEmailForm? errors.profileEmailForm : ''}`}
+          </span>
           {(isEdit)?
             <button type='submit'
             className={buttonClassName}
-            disabled = {isInputsWithErrors}
+            disabled = {!isValid}
             >Сохранить</button>
             :
             <>

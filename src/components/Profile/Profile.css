@@ -12,6 +12,19 @@
   align-items: center;
 }
 
+.profile__error{
+  color: #EE3465;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: normal;
+  min-height: 12px;
+}
+
+.profile__error:last-of-type{
+  margin-bottom: 190px;
+}
+
+
 .profile__button{
   width: 80%;
   font-size: 13px;
@@ -45,7 +58,6 @@
 
 .profile__elements:last-of-type{
   border-bottom: none;
-  margin-bottom: 190px;
 }
 
 .profile__element{

@@ -1,22 +1,28 @@
 import React from "react";
 import './Login.css';
 import PageWithForm from "../PageWithForm/PageWithForm.jsx";
+import useFormWithValidation from "../../hooks/useFormValidation.js";
 
-function Login({onSubmit}) {
+function Login({onSubmit, resError}) {
+
+  const { errors, isValid, handleChange, resetForm } = useFormWithValidation();
 
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
+    handleChange(e)
   }
 
   function handlePasswordChange(e) {
     setPassword(e.target.value);
+    handleChange(e)
   }
 
   function handleSubmit(e) {
     e.preventDefault();
+    resetForm()
     onSubmit({email, password});
   }
 
@@ -28,34 +34,44 @@ function Login({onSubmit}) {
     subtitleText = {'Ещё не зарегистрированы? '}
     linkText = {'Регистрация'}
     linkPath = {'/signup'}
-    onSubmit = {handleSubmit}>
+    onSubmit = {handleSubmit}
+    isValid = {isValid}
+    resError = {resError}
+    >
       <div className="auth__field">
         <p className="auth__input-name">E-mail</p>
         <label className="auth__label">
           <input type="email"
-          className="auth__input"
+          className={`auth__input ${errors.emailLoginForm? 'auth__input_error' : ''}`}
           id="email-login-input"
           placeholder="E-mail"
           name="emailLoginForm"
           required
           onChange={handleEmailChange}
           value={email}/>
-          <span className="auth__error email-input-error">Какая-то ошибка</span>
+          <span
+          className={`auth__error ${errors.emailLoginForm?
+          'auth__error_active' : ''}`}>
+            {`${errors.emailLoginForm? errors.emailLoginForm : ''}`}
+          </span>
         </label>
       </div>
       <div className="auth__field">
         <p className="auth__input-name">Пароль</p>
         <label className="auth__label">
         <input type="password"
-            className="auth__input"
+            className={`auth__input ${errors.passwordLoginForm? 'auth__input_error' : ''}`}
             id="password-login-input"
             placeholder="Пароль"
             name="passwordLoginForm"
             autoComplete="carrentPassword"
             required
             onChange={handlePasswordChange}
+            minLength={8}
             value={password}/>
-          <span className="auth__error password-input-error">Какая-то ошибка</span>
+          <span className={`auth__error ${errors.passwordLoginForm? 'auth__error_active' : ''}`}>
+            {`${errors.passwordLoginForm? errors.passwordLoginForm : ''}`}
+          </span>
       </label>
       </div>
     </PageWithForm>
