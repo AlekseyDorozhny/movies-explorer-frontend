@@ -9,7 +9,7 @@ import moviesApi from '../../utils/MoviesApi';
 import { findMovies } from '../../utils/MoviesUtil';
 
 
-function Movies({saveMovie, savedMovies, deleteMovie}) {
+function Movies({initialMoviesData, dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDataFromStorage}) {
 
   const [filtredMoviesData, changeFiltredMoviesData] = React.useState([]);
   const [searchParams, changeSearchParams] = React.useState({});
@@ -20,27 +20,25 @@ function Movies({saveMovie, savedMovies, deleteMovie}) {
   })
   const [isNotFound, setNotFound] = React.useState(false)
 
+
   React.useEffect(() => {
-    const dataFromStorage =JSON.parse(localStorage.getItem('searchingResaults'))
     if (dataFromStorage !== null) {
-      changeSearchStatus(true)
-      moviesApi.getMovies()
-      .then((res) => {
-        const movies = findMovies(res, dataFromStorage.name, dataFromStorage.shorts, savedMovies)
-        if (movies.length === 0) {
-          setNotFound(true)
-        }
-        changeFiltredMoviesData(movies);
-      })
-      .then (() => {
-        changeSearchStatus(false)
-      })
-      .catch((err) => {console.log(err)})
-      } else {
+      if (dataFromStorage.length === 0) {
         return
       }
-
-  }, [])
+      console.log(dataFromStorage)
+      changeSearchStatus(true)
+      const movies = findMovies(initialMoviesData, dataFromStorage.name, dataFromStorage.shorts, savedMovies)
+      console.log(movies)
+      if (movies.length === 0) {
+        setNotFound(true)
+      }
+      changeFiltredMoviesData(movies);
+      changeSearchStatus(false)
+    } else {
+      return
+    }
+  }, [initialMoviesData])
 
   React.useEffect(() => {
       const resize = () => {
@@ -80,22 +78,17 @@ function Movies({saveMovie, savedMovies, deleteMovie}) {
     setNotFound(false)
     changeFiltredMoviesData([])
     changeSearchStatus(true)
-    moviesApi.getMovies()
-    .then((res) => {
-      const name = searchParams.name;
-      const shorts = searchParams.shorts;
-      const movies = findMovies(res, name, shorts, savedMovies)
-      const savedSearchingResoults = {movies: movies, name: name, shorts: shorts}
-      changeFiltredMoviesData(movies);
-      localStorage.setItem('searchingResaults', JSON.stringify(savedSearchingResoults));
-      if (movies.length === 0) {
-        setNotFound(true)
-      }
-    })
-    .then(() => {
-      changeSearchStatus(false)
-    })
-    .catch((err) => {console.log(err)})
+    const name = searchParams.name;
+    const shorts = searchParams.shorts;
+    const movies = findMovies(initialMoviesData, name, shorts, savedMovies)
+    const savedSearchingResoults = {movies: movies, name: name, shorts: shorts}
+    changeFiltredMoviesData(movies);
+    localStorage.setItem('searchingResaults', JSON.stringify(savedSearchingResoults));
+    changeDataFromStorage(savedSearchingResoults)
+    if (movies.length === 0) {
+      setNotFound(true)
+    }
+    changeSearchStatus(false)
   }
 
   return(

@@ -19,6 +19,7 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 
 import mainApi from "../../utils/MainApi";
+import moviesApi from '../../utils/MoviesApi';
 
 function App() {
 
@@ -27,13 +28,31 @@ function App() {
   const [currentUser, changeCurrentUser] = React.useState({});
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [resError, changeResError] = React.useState({})
+  const [dataFromStorage, changeDataFromStorage] = React.useState([])
+  const [moviesData, setMoviesData] = React.useState([])
 
   React.useEffect(() => {
     tokenCheck();
   }, [])
 
   React.useEffect(() => {
+    moviesApi.getMovies()
+    .then((res) => {
+      setMoviesData(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [])
+
+
+  React.useEffect(() => {
     getSavedMoviesData();
+  }, [])
+
+  React.useEffect(() => {
+    const movies = JSON.parse(localStorage.getItem('searchingResaults'))
+    changeDataFromStorage(movies)
   }, [])
 
   const navigate = useNavigate();
@@ -91,6 +110,9 @@ function App() {
       localStorage.removeItem('searchingResaults');
       changeLoggedStatus(false);
       navigate('/', {replace: true});
+    })
+    .then(() => {
+      changeDataFromStorage([])
     })
     .catch((err) => {console.log(err)})
   }
@@ -155,6 +177,9 @@ function App() {
               saveMovie={handleSaveMovie}
               savedMovies={savedMovies}
               deleteMovie={handleDeleteMovie}
+              dataFromStorage={dataFromStorage}
+              changeDataFromStorage={changeDataFromStorage}
+              initialMoviesData={moviesData}
             />}
           />
           <Route path='/saved-movies'
