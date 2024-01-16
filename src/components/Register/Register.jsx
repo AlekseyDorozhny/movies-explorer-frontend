@@ -18,6 +18,10 @@ function Register({onSubmit, resError, changeResError}) {
   }
 
   function handleEmailChange(e) {
+    const validateEmailRegex = new RegExp(/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/)
+    if (!validateEmailRegex.test(e.target.value)) {
+      console.log(e.target)
+    }
     changeResError({})
     setEmail(e.target.value);
     handleChange(e)
@@ -75,7 +79,8 @@ function Register({onSubmit, resError, changeResError}) {
           name="emailRegisterForm"
           required
           onChange={handleEmailChange}
-          value={email}/>
+          value={email}
+          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"/>
           <span className={`auth__error ${errors.emailRegisterForm? 'auth__error_active' : ''}`}>
           {`${errors.emailRegisterForm? errors.emailRegisterForm : ''}`}
           </span>

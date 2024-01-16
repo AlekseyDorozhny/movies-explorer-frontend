@@ -9,7 +9,7 @@ import StandartPage from '../StandartPage/StandartPage';
 
 const ProtectedRouteElement = ({...props}) => {
   return (
-    props.loggedIn ? <StandartPage {...props}/> : <Navigate to="/signin" replace/>
+    props.loggedIn ? <StandartPage {...props}/> : <Navigate to="/" replace/>
 )}
 
 export default ProtectedRouteElement;

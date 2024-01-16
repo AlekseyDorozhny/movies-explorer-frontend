@@ -64,7 +64,7 @@ function App() {
       .then((res)=> {
         changeCurrentUser({name: res.name, email: res.email})
         changeLoggedStatus(true)
-        navigate('/', {replace: true})
+        navigate('/movies', {replace: true})
         return
       })
       .catch((err) => {
@@ -75,8 +75,9 @@ function App() {
   }
 
   function handleRegisterSubmit({name, email, password}) {
-    mainApi.registration({name, email, password}).then(() => {
-      navigate('/signin', {replace: true});
+    mainApi.registration({name, email, password})
+    .then(() => {
+      handleLoginSubmit({email, password})
     })
     .catch((err) => {
       if (err === 'Ошибка: 409') {
