@@ -32,7 +32,7 @@ function App() {
   const [moviesData, setMoviesData] = React.useState([])
 
   React.useEffect(() => {
-    tokenCheck();
+    tokenCheck(false);
   }, [])
 
   React.useEffect(() => {
@@ -45,7 +45,6 @@ function App() {
     })
   }, [])
 
-
   React.useEffect(() => {
     getSavedMoviesData();
   }, [])
@@ -57,14 +56,16 @@ function App() {
 
   const navigate = useNavigate();
 
-  function tokenCheck() {
+  function tokenCheck(redirect) {
     if (localStorage.getItem('jwt')){
       const token = localStorage.getItem('jwt');
       mainApi.tokenCheck(token)
       .then((res)=> {
         changeCurrentUser({name: res.name, email: res.email})
         changeLoggedStatus(true)
-        navigate('/movies', {replace: true})
+        if (redirect === true) {
+          navigate('/movies', {replace: true})
+        }
         return
       })
       .catch((err) => {
@@ -93,7 +94,7 @@ function App() {
   function handleLoginSubmit({email, password}) {
     mainApi.login({email, password}).then((res) => {
       if (res){
-        tokenCheck();
+        tokenCheck(true);
       } else {
         console.log('Что-то не так с токеном')
       }

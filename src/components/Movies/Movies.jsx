@@ -4,7 +4,6 @@ import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
-import moviesApi from '../../utils/MoviesApi';
 
 import { findMovies } from '../../utils/MoviesUtil';
 
@@ -15,30 +14,34 @@ function Movies({initialMoviesData, dataFromStorage, saveMovie, savedMovies, del
   const [searchParams, changeSearchParams] = React.useState({});
   const [isSearching, changeSearchStatus] = React.useState(false);
   const [numberOfVisableCards, setNumberOfVisableCards] = React.useState(12);
-  const [displaySize, setDisplaySize] = React.useState({
-    width: window.innerWidth,
-  })
+  const [displaySize, setDisplaySize] = React.useState({width: window.innerWidth,})
   const [isNotFound, setNotFound] = React.useState(false)
 
 
   React.useEffect(() => {
+    console.log(dataFromStorage !== null)
     if (dataFromStorage !== null) {
       if (dataFromStorage.length === 0) {
         return
       }
-      console.log(dataFromStorage)
       changeSearchStatus(true)
       const movies = findMovies(initialMoviesData, dataFromStorage.name, dataFromStorage.shorts, savedMovies)
-      console.log(movies)
-      if (movies.length === 0) {
-        setNotFound(true)
-      }
       changeFiltredMoviesData(movies);
       changeSearchStatus(false)
     } else {
       return
     }
   }, [initialMoviesData])
+
+  React.useEffect(() => {
+    if (dataFromStorage !== null) {
+      if (dataFromStorage.name === searchParams.name) {
+        searchMovies()
+      }
+    } else {
+      return
+    }
+  }, [searchParams])
 
   React.useEffect(() => {
       const resize = () => {

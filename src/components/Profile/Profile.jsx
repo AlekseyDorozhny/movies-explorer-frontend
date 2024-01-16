@@ -18,6 +18,7 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
   const [isEdit, changeEditStatus] = React.useState(false);
   const [nameInput, setNameInput] = React.useState(currentUser.name);
   const [emailInput, setEmailInput] = React.useState(currentUser.email);
+  const [buttonStatus, setButtonStatus] = React.useState(true)
 
   React.useEffect(() => {
     changeResError({})
@@ -25,8 +26,22 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
     setEmailInput(currentUser.email)
   }, [])
 
+  React.useEffect(() => {
+
+    if (nameInput === currentUser.name && emailInput === currentUser.email) {
+      setButtonStatus(true)
+      return
+    }
+    if (isValid) {
+      setButtonStatus(false)
+    } else {
+      setButtonStatus(true)
+    }
+  }, [nameInput, emailInput])
+
+
   const buttonClassName = (
-    !isValid? 'profile__button profile__button_inactive' : 'profile__button'
+    buttonStatus? 'profile__button profile__button_inactive' : 'profile__button'
   );
 
   function handleNameInputChange(e) {
@@ -57,6 +72,7 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
     e.preventDefault();
     resetForm()
     updateProfile(nameInput, emailInput)
+    changeEditStatus(false);
   }
 
   return(
@@ -95,6 +111,7 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
               defaultValue={userEmail}
               onChange={handleEmailInputChange}
               name='profileEmailForm'
+              pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
               required
               />
               :
@@ -111,7 +128,7 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
               </span>
               <button type='submit'
               className={buttonClassName}
-              disabled = {!isValid}
+              disabled = {buttonStatus}
               >Сохранить</button>
             </>
             :

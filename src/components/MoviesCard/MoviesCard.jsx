@@ -5,6 +5,7 @@ function MoviesCard(
   {allData, movieImage, movieName, length, savedStatus, type, link, saveMovie, deleteMovie}) {
 
   const [SavedStatus, changeSavedStatus] = React.useState(savedStatus);
+  const [deleteSavedMovie, onDeleteSavedMovie] =React.useState(false);
 
   const cardStatusClassName = (
     `movies-card__checkbox ${SavedStatus && 'movies-card__checkbox_active'}`
@@ -21,6 +22,7 @@ function MoviesCard(
 
   function handleDeleteClick() {
     if (allData.movieId) {
+      onDeleteSavedMovie(true)
       deleteMovie(allData.movieId);
     } else {
       deleteMovie(allData.id);
@@ -28,8 +30,10 @@ function MoviesCard(
     }
   }
 
+
+  <li className='movies-card'></li>
   return(
-    <li className='movies-card'>
+    <li className={`movies-card ${deleteSavedMovie? 'movies-card_deleted' : ''}`}>
       {(type !== 'savedMovies')?
        <div className='movies-card__image-container'>
         <a className='movies-card__link' target="_blank" href={link} rel='noreferrer'>

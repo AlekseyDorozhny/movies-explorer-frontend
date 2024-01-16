@@ -8,22 +8,19 @@ import { findSavedMovies } from '../../utils/MoviesUtil';
 
 function SavedMovies({savedMovies, deleteMovie}) {
 
-  React.useEffect(() => {
-    changeCardsData(savedMovies)
-  }, [savedMovies])
-
   const [searchParams, changeSearchParams] = React.useState({});
   const [cardsData, changeCardsData] = React.useState(savedMovies);
   const [isNotFound, setNotFound] = React.useState(false)
 
   function searchSavedMovies() {
     setNotFound(false)
-    const movies = findSavedMovies(savedMovies, searchParams.name, searchParams.shorts)
+    const movies = findSavedMovies(savedMovies, searchParams.name)
     changeCardsData(movies)
     if (movies.length === 0) {
       setNotFound(true)
     }
   }
+
 
   return(
     <div className='movies movies_type_saved'>

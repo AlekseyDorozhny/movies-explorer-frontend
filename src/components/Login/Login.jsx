@@ -49,6 +49,7 @@ function Login({onSubmit, resError, changeResError}) {
           id="email-login-input"
           placeholder="E-mail"
           name="emailLoginForm"
+          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
           required
           onChange={handleEmailChange}
           value={email}/>

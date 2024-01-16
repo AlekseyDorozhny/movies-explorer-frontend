@@ -7,7 +7,6 @@ function FilterCheckbox({setSearchShorts, searchShorts}) {
 
   function setSearchShortsHandle() {
     (searchShorts)? setSearchShorts(false) : setSearchShorts(true);
-    console.log(searchShorts)
   }
 
   React.useEffect(() => {

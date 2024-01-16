@@ -56,8 +56,6 @@ class MainApi {
   }
 
   updateProfile(name, email) {
-    console.log(name)
-    console.log(email)
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -67,7 +65,6 @@ class MainApi {
       body: JSON.stringify({name, email}),
     })
     .then((res) => this._checkResponse(res))
-    .then((res) => console.log(res))
   }
 
   saveMovie(data) {
