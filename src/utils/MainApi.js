@@ -53,6 +53,12 @@ class MainApi {
       method: 'POST',
       headers: this.headers,
     })
+    .then((res) => {
+      if (res.ok) {
+        return res
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
   }
 
   updateProfile(name, email) {
