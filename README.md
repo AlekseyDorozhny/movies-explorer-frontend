@@ -12,3 +12,5 @@
 + [Ccылка на проект](http://dorozha.movies.nomoredomainsrocks.ru)
 
 + [Ccылка на API](http://api.dorozha.movies.nomoredomainsrocks.ru)
+
++ [Ccылка на пул реквест](https://github.com/AlekseyDorozhny/movies-explorer-frontend/pull/3)
