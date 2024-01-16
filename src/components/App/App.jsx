@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {Route, Routes, useNavigate} from 'react-router-dom';
 
 import './App.css';
@@ -46,20 +46,26 @@ function App() {
         changeCurrentUser({name: res.name, email: res.email})
         changeLoggedStatus(true)
         navigate('/', {replace: true})
-        changeResError({})
         return
       })
-      .catch((err) => {console.log(err)})
+      .catch((err) => {
+        console.log(err.massage)
+        changeResError({login: err, massage: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.'})
+      })
     }
   }
 
   function handleRegisterSubmit({name, email, password}) {
     mainApi.registration({name, email, password}).then(() => {
       navigate('/signin', {replace: true});
-      changeResError({})
     })
     .catch((err) => {
-      changeResError({register: err})
+      if (err === 'Ошибка: 409') {
+        changeResError({register: err, massage: 'Пользователь с таким email уже существует.'})
+      } else {
+        changeResError({register: err, massage: 'При регистрации пользователя произошла ошибка.'})
+      }
+
       console.log(err);
     })
   }
@@ -73,7 +79,7 @@ function App() {
       }
     })
     .catch((err) => {
-      changeResError({login: err})
+      changeResError({login: err, massage: 'Вы ввели неправильный логин или пароль.'})
       console.log(err);
     })
   }
@@ -82,7 +88,7 @@ function App() {
     mainApi.logout()
     .then((res) => {
       localStorage.removeItem('jwt');
-      localStorage.removeItem('searchingResoults');
+      localStorage.removeItem('searchingResaults');
       changeLoggedStatus(false);
       navigate('/', {replace: true});
     })
@@ -117,11 +123,14 @@ function App() {
     mainApi.updateProfile(nameInput, emailInput)
       .then((res) =>{
         changeCurrentUser({name: res.name, email: res.email})
-        changeResError({})
       })
       .catch((err) => {
         console.log(err)
-        changeResError({profile: err})
+        if (err === 'Ошибка: 409') {
+          changeResError({profile: err, massage: 'Пользователь с таким email уже существует.'})
+        } else {
+          changeResError({profile: err, massage: 'При обновлении профиля произошла ошибка.'})
+        }
       })
   }
 
@@ -167,18 +176,21 @@ function App() {
             onLogoutClick={handleLogoutSubmit}
             updateProfile={handleUpdateProfile}
             resError={resError}
+            changeResError={changeResError}
           />}
           />
           <Route path='/signin'
           element={<Login
           onSubmit={handleLoginSubmit}
           resError={resError}
+          changeResError={changeResError}
           />}
           />
           <Route path='/signup'
           element={<Register
           onSubmit={handleRegisterSubmit}
           resError={resError}
+          changeResError={changeResError}
           />}
           />
           <Route path="*" element={<PageNotFound />} />

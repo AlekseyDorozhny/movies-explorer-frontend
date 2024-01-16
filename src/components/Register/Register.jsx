@@ -3,7 +3,7 @@ import './Register.css';
 import PageWithForm from "../PageWithForm/PageWithForm.jsx";
 import useFormWithValidation from "../../hooks/useFormValidation.js";
 
-function Register({onSubmit}) {
+function Register({onSubmit, resError, changeResError}) {
 
   const { errors, isValid, handleChange, resetForm } = useFormWithValidation();
 
@@ -12,16 +12,19 @@ function Register({onSubmit}) {
   const [password, setPassword] = React.useState('')
 
   function handleNameChange(e) {
+    changeResError({})
     setName(e.target.value);
     handleChange(e)
   }
 
   function handleEmailChange(e) {
+    changeResError({})
     setEmail(e.target.value);
     handleChange(e)
   }
 
   function handlePasswordChange(e) {
+    changeResError({})
     setPassword(e.target.value);
     handleChange(e)
   }
@@ -41,7 +44,9 @@ function Register({onSubmit}) {
     linkText = {'Войти'}
     linkPath = {'/signin'}
     onSubmit = {handleSubmit}
-    isValid = {isValid}>
+    isValid = {isValid}
+    resError = {resError}
+    changeResError={changeResError}>
       <div className="auth__field">
         <p className="auth__input-name">Имя</p>
         <label className="auth__label">
@@ -50,6 +55,8 @@ function Register({onSubmit}) {
           id="name-register-input"
           placeholder="Имя"
           name="nameRegisterForm"
+          minLength={2}
+          maxLength={30}
           required
           onChange={handleNameChange}
           value={name}/>

@@ -7,7 +7,7 @@ import {CurrentUserContext} from '../../contexts/CurrentUserContext.js'
 
 import useFormWithValidation from "../../hooks/useFormValidation.js";
 
-function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfile}) {
+function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfile, resError, changeResError}) {
 
   const currentUser = React.useContext(CurrentUserContext)
 
@@ -20,6 +20,7 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
   const [emailInput, setEmailInput] = React.useState(currentUser.email);
 
   React.useEffect(() => {
+    changeResError({})
     setNameInput(currentUser.name)
     setEmailInput(currentUser.email)
   }, [])
@@ -29,11 +30,13 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
   );
 
   function handleNameInputChange(e) {
+    changeResError({})
     setNameInput(e.target.value);
     handleChange(e)
   }
 
   function handleEmailInputChange(e) {
+    changeResError({})
     setEmailInput(e.target.value);
     handleChange(e)
   }
@@ -102,10 +105,15 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
           {`${errors.profileEmailForm? errors.profileEmailForm : ''}`}
           </span>
           {(isEdit)?
-            <button type='submit'
-            className={buttonClassName}
-            disabled = {!isValid}
-            >Сохранить</button>
+            <>
+              <span className='profile__res-error'>
+              {resError.profile? resError.massage : ''}
+              </span>
+              <button type='submit'
+              className={buttonClassName}
+              disabled = {!isValid}
+              >Сохранить</button>
+            </>
             :
             <>
               <button type='button'

@@ -3,7 +3,7 @@ import './Login.css';
 import PageWithForm from "../PageWithForm/PageWithForm.jsx";
 import useFormWithValidation from "../../hooks/useFormValidation.js";
 
-function Login({onSubmit, resError}) {
+function Login({onSubmit, resError, changeResError}) {
 
   const { errors, isValid, handleChange, resetForm } = useFormWithValidation();
 
@@ -11,11 +11,13 @@ function Login({onSubmit, resError}) {
   const [password, setPassword] = React.useState('')
 
   function handleEmailChange(e) {
+    changeResError({})
     setEmail(e.target.value);
     handleChange(e)
   }
 
   function handlePasswordChange(e) {
+    changeResError({})
     setPassword(e.target.value);
     handleChange(e)
   }
@@ -37,6 +39,7 @@ function Login({onSubmit, resError}) {
     onSubmit = {handleSubmit}
     isValid = {isValid}
     resError = {resError}
+    changeResError={changeResError}
     >
       <div className="auth__field">
         <p className="auth__input-name">E-mail</p>

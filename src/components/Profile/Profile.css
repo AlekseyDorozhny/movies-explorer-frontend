@@ -20,6 +20,15 @@
   min-height: 12px;
 }
 
+.profile__res-error{
+  margin-bottom: 10px;
+  color: #EE3465;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: normal;
+  min-height: 12px;
+}
+
 .profile__error:last-of-type{
   margin-bottom: 190px;
 }

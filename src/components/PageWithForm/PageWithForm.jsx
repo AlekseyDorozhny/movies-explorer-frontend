@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './PageWithForm.css';
 import headerLogo from '../../images/logo.svg'
 import { NavLink } from 'react-router-dom';
 
-function PageWithForm({name, heading, children, buttonText, subtitleText, linkText, linkPath, onSubmit, isValid, resError}) {
+function PageWithForm({name, heading, children, buttonText, subtitleText, linkText, linkPath, onSubmit, isValid, resError, changeResError}) {
 
   React.useEffect(() => {
-    console.log(resError[name])
-  }, [resError])
+    changeResError({})
+  },[])
 
   return (
     <main className="auth">
@@ -25,9 +25,7 @@ function PageWithForm({name, heading, children, buttonText, subtitleText, linkTe
           {children}
         </div>
         <span className="auth__res-error">
-          {resError[name]? 'a'
-
-          : ''}
+          {resError.massage}
         </span>
         <button
         type='submit'
