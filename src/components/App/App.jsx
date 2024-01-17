@@ -34,7 +34,6 @@ function App() {
     tokenCheck(false);
   }, [])
 
-
   React.useEffect(() => {
     mainApi.getSavedMovies()
     .then((res) => {setSavedMovies(res)})
@@ -124,7 +123,7 @@ function App() {
 
   //обработчики карточек
   function handleSaveMovie(data) {
-
+    console.log('сохраняю')
     mainApi.saveMovie(data)
     .then((res) => {
       const newDataFromStorage = likeMovieInStorage(dataFromStorage, res.movieId)
@@ -133,6 +132,10 @@ function App() {
       const newSavedMovies = savedMovies
       newSavedMovies[newSavedMovies.length] = res
       setSavedMovies(newSavedMovies)
+    })
+    .then(() => {
+      console.log(dataFromStorage)
+      console.log(savedMovies)
     })
     .catch((err) => {console.log(err)})
   }
