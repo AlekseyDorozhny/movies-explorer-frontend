@@ -7,41 +7,33 @@ import Preloader from '../Preloader/Preloader';
 
 import { findMovies } from '../../utils/MoviesUtil';
 
+import moviesApi from '../../utils/MoviesApi';
 
-function Movies({initialMoviesData, dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDataFromStorage}) {
+function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDataFromStorage}) {
 
+  const [moviesData, changeMoviesData] = React.useState([])
   const [filtredMoviesData, changeFiltredMoviesData] = React.useState([]);
   const [searchParams, changeSearchParams] = React.useState({});
   const [isSearching, changeSearchStatus] = React.useState(false);
   const [numberOfVisableCards, setNumberOfVisableCards] = React.useState(12);
   const [displaySize, setDisplaySize] = React.useState({width: window.innerWidth,})
   const [isNotFound, setNotFound] = React.useState(false)
-
+  const [restoreData, setRestoreData] = React.useState(false)
+  const [moviesDataToDraw, setMoviesDataToDraw] = React.useState([])
 
   React.useEffect(() => {
-    console.log(dataFromStorage !== null)
-    if (dataFromStorage !== null) {
-      if (dataFromStorage.length === 0) {
+    const movies = JSON.parse(localStorage.getItem('searchingResaults'))
+    if (movies !== null) {
+      if (movies.length === 0) {
         return
       }
-      changeSearchStatus(true)
-      const movies = findMovies(initialMoviesData, dataFromStorage.name, dataFromStorage.shorts, savedMovies)
-      changeFiltredMoviesData(movies);
-      changeSearchStatus(false)
+      changeDataFromStorage(movies)
+      setRestoreData(true)
     } else {
+      console.log('nothing')
       return
     }
-  }, [initialMoviesData])
-
-  React.useEffect(() => {
-    if (dataFromStorage !== null) {
-      if (dataFromStorage.name === searchParams.name) {
-        searchMovies()
-      }
-    } else {
-      return
-    }
-  }, [searchParams])
+  }, [])
 
   React.useEffect(() => {
       const resize = () => {
@@ -50,20 +42,32 @@ function Movies({initialMoviesData, dataFromStorage, saveMovie, savedMovies, del
           })
       }
       window.addEventListener('resize', resize)
+      return () => {
+        window.removeEventListener('resize', resize)
+      }
   }, [])
 
   React.useEffect(() => {
     const width = JSON.stringify(displaySize).match(/\d+/g)[0];
-    if (width >= 1280) {
+    if (width >= 1277) {
       setNumberOfVisableCards(12)
     }
-    if (width <= 768) {
+    if (width < 1277) {
       setNumberOfVisableCards(8)
     }
-    if (width <= 480) {
+    if (width <= 745) {
       setNumberOfVisableCards(5)
     }
   },[displaySize])
+
+  React.useEffect(() => {
+    if (restoreData) {
+
+      setMoviesDataToDraw(dataFromStorage.movies)
+    } else {
+      setMoviesDataToDraw(filtredMoviesData)
+    }
+}, [restoreData])
 
   const getMoreCards = () => {
     const width = JSON.stringify(displaySize).match(/\d+/g)[0];
@@ -77,21 +81,33 @@ function Movies({initialMoviesData, dataFromStorage, saveMovie, savedMovies, del
     }
   }
 
-  function searchMovies() {
-    setNotFound(false)
-    changeFiltredMoviesData([])
-    changeSearchStatus(true)
-    const name = searchParams.name;
-    const shorts = searchParams.shorts;
-    const movies = findMovies(initialMoviesData, name, shorts, savedMovies)
-    const savedSearchingResoults = {movies: movies, name: name, shorts: shorts}
-    changeFiltredMoviesData(movies);
-    localStorage.setItem('searchingResaults', JSON.stringify(savedSearchingResoults));
-    changeDataFromStorage(savedSearchingResoults)
+  function searchMovieHandler(moviesData, name, shorts) {
+    const movies = findMovies(moviesData, name, shorts, savedMovies)
+    const savedSearchingResaults = {movies: movies, name: searchParams.name, shorts: searchParams.shorts}
+    setMoviesDataToDraw(movies)
+    changeFiltredMoviesData(movies)
+    localStorage.setItem('searchingResaults', JSON.stringify(savedSearchingResaults));
+    changeDataFromStorage(savedSearchingResaults)
     if (movies.length === 0) {
       setNotFound(true)
     }
     changeSearchStatus(false)
+  }
+
+  function searchMovies() {
+    setNotFound(false)
+    changeFiltredMoviesData([])
+    changeSearchStatus(true)
+    if (moviesData.length === 0) {
+      moviesApi.getMovies()
+      .then((res) => {
+        changeMoviesData(res);
+        searchMovieHandler(res, searchParams.name, searchParams.shorts);
+      })
+      .catch((err) => {console.log(err)})
+    } else {
+      searchMovieHandler(moviesData, searchParams.name, searchParams.shorts);
+    }
   }
 
   return(
@@ -104,15 +120,19 @@ function Movies({initialMoviesData, dataFromStorage, saveMovie, savedMovies, del
       </div>
       {(isSearching)? <Preloader /> : ''}
       {(isNotFound)? <p className='movies__notFound'> Ничего не найдено</p> : ''}
+      {(!isSearching)?
       <MoviesCardList
-      cardsData = {filtredMoviesData}
+      cardsData = {moviesDataToDraw}
       type = 'movies'
       numberOfVisableCards = {numberOfVisableCards}
       saveMovie = {saveMovie}
       deleteMovie = {deleteMovie}
       savedMovies = {savedMovies}
+      searchParams = {searchParams}
       />
-      {(filtredMoviesData.length > numberOfVisableCards)?
+      :
+      ''}
+      {(moviesDataToDraw.length > numberOfVisableCards)?
       <button
       className='movies__button'
       type='button'
@@ -120,7 +140,6 @@ function Movies({initialMoviesData, dataFromStorage, saveMovie, savedMovies, del
       >Ещё</button>
       : ''
       }
-
     </div>
   )
 }

@@ -6,7 +6,11 @@ function FilterCheckbox({setSearchShorts, searchShorts}) {
   const [checkboxUrl, setCheckboxUrl] = React.useState('');
 
   function setSearchShortsHandle() {
-    (searchShorts)? setSearchShorts(false) : setSearchShorts(true);
+    if (searchShorts) {
+      setSearchShorts(false)
+    } else {
+      setSearchShorts(true)
+    }
   }
 
   React.useEffect(() => {

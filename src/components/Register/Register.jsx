@@ -1,9 +1,10 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import './Register.css';
 import PageWithForm from "../PageWithForm/PageWithForm.jsx";
 import useFormWithValidation from "../../hooks/useFormValidation.js";
 
-function Register({onSubmit, resError, changeResError}) {
+function Register({onSubmit, resError, changeResError, loggedIn}) {
 
   const { errors, isValid, handleChange, resetForm } = useFormWithValidation();
 
@@ -40,6 +41,7 @@ function Register({onSubmit, resError, changeResError}) {
   }
 
   return (
+    !loggedIn ?
     <PageWithForm
     name = {'register'}
     heading = {'Добро пожаловать!'}
@@ -104,6 +106,7 @@ function Register({onSubmit, resError, changeResError}) {
         </label>
       </div>
     </PageWithForm>
+    : <Navigate to="/movies" replace/>
   )
 }
 

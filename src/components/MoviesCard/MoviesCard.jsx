@@ -4,20 +4,18 @@ import './MoviesCard.css';
 function MoviesCard(
   {allData, movieImage, movieName, length, savedStatus, type, link, saveMovie, deleteMovie}) {
 
-  const [SavedStatus, changeSavedStatus] = React.useState(savedStatus);
   const [deleteSavedMovie, onDeleteSavedMovie] =React.useState(false);
 
   const cardStatusClassName = (
-    `movies-card__checkbox ${SavedStatus && 'movies-card__checkbox_active'}`
+    `movies-card__checkbox ${savedStatus && 'movies-card__checkbox_active'}`
   );
 
   const cardSaveButtonClassName = (
-    `movies-card__save-button ${SavedStatus && 'movies-card__save-button_unactive'}`
+    `movies-card__save-button ${savedStatus && 'movies-card__save-button_unactive'}`
   );
 
   function handleSaveClick() {
     saveMovie(allData)
-    changeSavedStatus(true)
   }
 
   function handleDeleteClick() {
@@ -26,7 +24,6 @@ function MoviesCard(
       deleteMovie(allData.movieId);
     } else {
       deleteMovie(allData.id);
-      changeSavedStatus(false)
     }
   }
 

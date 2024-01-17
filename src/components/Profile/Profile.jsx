@@ -61,6 +61,7 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
       changeUserName(currentUser.name)
       changeUserEmail(currentUser.email)
     }
+    changeEditStatus(false)
   }, [currentUser])
 
   function startEditProfileHandler(e) {
@@ -68,11 +69,10 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
     changeEditStatus(true);
   }
 
-  function editProfileHandler(e) {
+  async function editProfileHandler(e) {
     e.preventDefault();
     resetForm()
     updateProfile(nameInput, emailInput)
-    changeEditStatus(false);
   }
 
   return(

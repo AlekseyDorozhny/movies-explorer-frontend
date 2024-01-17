@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import {Route, Routes, useNavigate} from 'react-router-dom';
 
 import './App.css';
@@ -19,43 +19,31 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 
 import mainApi from "../../utils/MainApi";
-import moviesApi from '../../utils/MoviesApi';
+import { likeMovieInStorage, deleteMovieInStorage} from "../../utils/MoviesUtil.js";
 
 function App() {
 
-  const [loggedIn, changeLoggedStatus] = React.useState(false);
+  const [loggedIn, changeLoggedStatus] = React.useState(localStorage.getItem('jwt')? true : false);
   const [burgerStatus, onBurger] = React.useState(false);
   const [currentUser, changeCurrentUser] = React.useState({});
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [resError, changeResError] = React.useState({})
   const [dataFromStorage, changeDataFromStorage] = React.useState([])
-  const [moviesData, setMoviesData] = React.useState([])
 
   React.useEffect(() => {
     tokenCheck(false);
   }, [])
 
-  React.useEffect(() => {
-    moviesApi.getMovies()
-    .then((res) => {
-      setMoviesData(res)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }, [])
 
   React.useEffect(() => {
-    getSavedMoviesData();
-  }, [])
-
-  React.useEffect(() => {
-    const movies = JSON.parse(localStorage.getItem('searchingResaults'))
-    changeDataFromStorage(movies)
+    mainApi.getSavedMovies()
+    .then((res) => {setSavedMovies(res)})
+    .catch((err) => {console.log(err)})
   }, [])
 
   const navigate = useNavigate();
 
+//обработчики аутотентификация и профиля
   function tokenCheck(redirect) {
     if (localStorage.getItem('jwt')){
       const token = localStorage.getItem('jwt');
@@ -119,30 +107,6 @@ function App() {
     .catch((err) => {console.log(err)})
   }
 
-  function handleSaveMovie(data) {
-    mainApi.saveMovie(data)
-    .then(() => {getSavedMoviesData()})
-    .catch((err) => {console.log(err)})
-  }
-
-  function getSavedMoviesData() {
-    mainApi.getSavedMovies()
-    .then((res) => {setSavedMovies(res)})
-    .catch((err) => {console.log(err)})
-  }
-
-  function handleDeleteMovie(id) {
-    const savedMovie = savedMovies.find(item => item.movieId === id);
-    mainApi.deleteMovie(savedMovie._id)
-    .then((res) => {
-      if (res) {
-        const newSavedMovies = savedMovies.filter(i => i.movieId !== id)
-        setSavedMovies(newSavedMovies)
-      }
-    })
-    .catch((err) => {console.log(err)})
-  }
-
   function handleUpdateProfile(nameInput, emailInput) {
     mainApi.updateProfile(nameInput, emailInput)
       .then((res) =>{
@@ -156,6 +120,35 @@ function App() {
           changeResError({profile: err, massage: 'При обновлении профиля произошла ошибка.'})
         }
       })
+  }
+
+  //обработчики карточек
+  function handleSaveMovie(data) {
+
+    mainApi.saveMovie(data)
+    .then((res) => {
+      const newDataFromStorage = likeMovieInStorage(dataFromStorage, res.movieId)
+      changeDataFromStorage(newDataFromStorage)
+      localStorage.setItem('searchingResaults', JSON.stringify(newDataFromStorage));
+      const newSavedMovies = savedMovies
+      newSavedMovies[newSavedMovies.length] = res
+      setSavedMovies(newSavedMovies)
+    })
+    .catch((err) => {console.log(err)})
+  }
+
+  function handleDeleteMovie(id) {
+    const savedMovie = savedMovies.find(item => item.movieId === id);
+    mainApi.deleteMovie(savedMovie._id)
+    .then((res) => {
+      if (res) {
+        const newDataFromStorage = deleteMovieInStorage(dataFromStorage, id)
+        localStorage.setItem('searchingResaults', JSON.stringify(newDataFromStorage));
+        const newSavedMovies = savedMovies.filter(i => i.movieId !== id)
+        setSavedMovies(newSavedMovies)
+      }
+    })
+    .catch((err) => {console.log(err)})
   }
 
   return (
@@ -181,7 +174,6 @@ function App() {
               deleteMovie={handleDeleteMovie}
               dataFromStorage={dataFromStorage}
               changeDataFromStorage={changeDataFromStorage}
-              initialMoviesData={moviesData}
             />}
           />
           <Route path='/saved-movies'
@@ -211,6 +203,7 @@ function App() {
           onSubmit={handleLoginSubmit}
           resError={resError}
           changeResError={changeResError}
+          loggedIn={loggedIn}
           />}
           />
           <Route path='/signup'
@@ -218,6 +211,7 @@ function App() {
           onSubmit={handleRegisterSubmit}
           resError={resError}
           changeResError={changeResError}
+          loggedIn={loggedIn}
           />}
           />
           <Route path="*" element={<PageNotFound />} />

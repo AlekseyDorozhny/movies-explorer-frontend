@@ -1,9 +1,10 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import './Login.css';
 import PageWithForm from "../PageWithForm/PageWithForm.jsx";
 import useFormWithValidation from "../../hooks/useFormValidation.js";
 
-function Login({onSubmit, resError, changeResError}) {
+function Login({onSubmit, resError, changeResError, loggedIn}) {
 
   const { errors, isValid, handleChange, resetForm } = useFormWithValidation();
 
@@ -29,6 +30,7 @@ function Login({onSubmit, resError, changeResError}) {
   }
 
   return (
+    !loggedIn ?
     <PageWithForm
     name = {'login'}
     heading = {'Рады видеть!'}
@@ -79,6 +81,7 @@ function Login({onSubmit, resError, changeResError}) {
       </label>
       </div>
     </PageWithForm>
+    : <Navigate to="/movies" replace/>
   )
 }
 

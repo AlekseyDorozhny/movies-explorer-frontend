@@ -13,9 +13,7 @@ export function findMovies(data, name, shorts, savedMoviesData) {
 
   const filteredMoviesByLenght = likedMoviesData.filter((item) => {
     if (shorts === false) {
-      if(item.duration >= 40) {
         return item
-      }
     } else {
       if(item.duration < 40) {
         return item
@@ -51,3 +49,28 @@ export function findSavedMovies(data, name) {
   return findedMovies
 }
 
+export function likeMovieInStorage(dataFromStorage, likedMovieId) {
+
+  const newLikedMoviesData = dataFromStorage.movies.filter((item) => {
+    if (item.id === likedMovieId) {
+      item.saved = true;
+    }
+    return item
+  })
+
+  const newDataFromStorage = {movies: newLikedMoviesData, name: dataFromStorage.name, shorts: dataFromStorage.shorts}
+  return newDataFromStorage
+}
+
+export function deleteMovieInStorage(dataFromStorage, deletedMovieId) {
+
+  const newLikedMoviesData = dataFromStorage.movies.filter((item) => {
+    if (item.id === deletedMovieId) {
+      item.saved = false;
+    }
+    return item
+  })
+
+  const newDataFromStorage = {movies: newLikedMoviesData, name: dataFromStorage.name, shorts: dataFromStorage.shorts}
+  return newDataFromStorage
+}

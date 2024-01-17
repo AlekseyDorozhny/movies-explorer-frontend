@@ -7,7 +7,6 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { findSavedMovies } from '../../utils/MoviesUtil';
 
 function SavedMovies({savedMovies, deleteMovie}) {
-
   const [searchParams, changeSearchParams] = React.useState({});
   const [cardsData, changeCardsData] = React.useState(savedMovies);
   const [isNotFound, setNotFound] = React.useState(false)
@@ -20,7 +19,6 @@ function SavedMovies({savedMovies, deleteMovie}) {
       setNotFound(true)
     }
   }
-
 
   return(
     <div className='movies movies_type_saved'>
@@ -35,6 +33,7 @@ function SavedMovies({savedMovies, deleteMovie}) {
       cardsData = {cardsData}
       deleteMovie = {deleteMovie}
       type = 'savedMovies'
+      searchParams = {searchParams}
       />
     </div>
   )
