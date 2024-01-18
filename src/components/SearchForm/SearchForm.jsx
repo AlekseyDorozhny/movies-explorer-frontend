@@ -2,7 +2,7 @@ import React from 'react';
 import './SearchForm.css';
 
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-function SearchForm({changeSearchParams, searchFunction}) {
+function SearchForm({changeSearchParams, searchFunction, restoreData}) {
 
   const [searchName, setSearchName] = React.useState('');
   const [searchShorts, setSearchShorts] = React.useState(false);
@@ -11,6 +11,17 @@ function SearchForm({changeSearchParams, searchFunction}) {
   React.useEffect(() => {
     changeSearchParams({name: searchName, shorts: searchShorts})
   },[searchName, searchShorts])
+
+  React.useEffect(() => {
+    if (restoreData) {
+      const movies = JSON.parse(localStorage.getItem('searchingResaults'))
+      console.log(movies)
+      setSearchShorts(movies.shorts)
+      setSearchName(movies.name)
+
+    }
+  },[restoreData])
+
 
   function handleNameChange(e) {
     setSearchName(e.target.value);
@@ -45,6 +56,8 @@ function SearchForm({changeSearchParams, searchFunction}) {
           name="searchForm"
           onChange={handleNameChange}
           onSelect={handleSelectInput}
+          defaultValue={restoreData? JSON.parse(localStorage.getItem('searchingResaults')).name
+          : ''}
           required />
         </label>
         <button type='submit' className='search-form__button'></button>
@@ -55,6 +68,7 @@ function SearchForm({changeSearchParams, searchFunction}) {
       <FilterCheckbox
       setSearchShorts = {setSearchShorts}
       searchShorts = {searchShorts}
+      restoreData = {restoreData}
       />
     </form>
   )

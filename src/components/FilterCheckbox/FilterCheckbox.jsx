@@ -1,9 +1,16 @@
 import React from 'react';
 import './FilterCheckbox.css';
 
-function FilterCheckbox({setSearchShorts, searchShorts}) {
+function FilterCheckbox({setSearchShorts, searchShorts, restoreData}) {
 
   const [checkboxUrl, setCheckboxUrl] = React.useState('');
+
+  React.useEffect(() => {
+    if (restoreData) {
+      const movies = JSON.parse(localStorage.getItem('searchingResaults'))
+
+    }
+  },[restoreData])
 
   function setSearchShortsHandle() {
     if (searchShorts) {

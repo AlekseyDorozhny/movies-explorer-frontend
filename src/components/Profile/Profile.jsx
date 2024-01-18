@@ -133,6 +133,9 @@ function Profile({ loggedIn, burgerStatus, onBurger, onLogoutClick, updateProfil
             </>
             :
             <>
+              <span className='profile__res-success'>
+              {resError.profileSuccess? resError.profileSuccess : ''}
+              </span>
               <button type='button'
               className='profile__link'
               onClick={startEditProfileHandler}

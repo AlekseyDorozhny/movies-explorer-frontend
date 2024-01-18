@@ -11,17 +11,7 @@ export function findMovies(data, name, shorts, savedMoviesData) {
     return item
   })
 
-  const filteredMoviesByLenght = likedMoviesData.filter((item) => {
-    if (shorts === false) {
-        return item
-    } else {
-      if(item.duration < 40) {
-        return item
-      }
-    }
-  })
-
-  const findedMovies = filteredMoviesByLenght.filter((item) => {
+  const findedMovies = likedMoviesData.filter((item) => {
     const itemNameRu =  String(item.nameRU).toLowerCase().trim();
     const itemNameEn =  String(item.nameEN).toLowerCase().trim();
     const searchingName = String(name).toLowerCase();

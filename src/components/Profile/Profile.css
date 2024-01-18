@@ -5,6 +5,15 @@
   align-items: center;
 }
 
+.profile__res-success{
+  color: #3456F3;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  min-height: 12px;
+  margin-bottom: 10px;
+}
+
 .profile{
   display: flex;
   flex-direction: column;

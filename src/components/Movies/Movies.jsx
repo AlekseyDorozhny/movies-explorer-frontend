@@ -28,6 +28,7 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
         return
       }
       changeDataFromStorage(movies)
+      changeSearchParams({name: movies.name, shorts: movies.shorts})
       setRestoreData(true)
     } else {
       console.log('nothing')
@@ -62,7 +63,6 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
 
   React.useEffect(() => {
     if (restoreData) {
-
       setMoviesDataToDraw(dataFromStorage.movies)
     } else {
       setMoviesDataToDraw(filtredMoviesData)
@@ -88,6 +88,16 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
     changeFiltredMoviesData(movies)
     localStorage.setItem('searchingResaults', JSON.stringify(savedSearchingResaults));
     changeDataFromStorage(savedSearchingResaults)
+    const width = JSON.stringify(displaySize).match(/\d+/g)[0];
+    if (width >= 1277) {
+      setNumberOfVisableCards(12)
+    }
+    if (width < 1277) {
+      setNumberOfVisableCards(8)
+    }
+    if (width <= 745) {
+      setNumberOfVisableCards(5)
+    }
     if (movies.length === 0) {
       setNotFound(true)
     }
@@ -98,6 +108,7 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
     setNotFound(false)
     changeFiltredMoviesData([])
     changeSearchStatus(true)
+    setMoviesDataToDraw([])
     if (moviesData.length === 0) {
       moviesApi.getMovies()
       .then((res) => {
@@ -116,6 +127,7 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
         <SearchForm
         changeSearchParams = {changeSearchParams}
         searchFunction = {searchMovies}
+        restoreData = {restoreData}
         />
       </div>
       {(isSearching)? <Preloader /> : ''}

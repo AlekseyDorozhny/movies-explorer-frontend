@@ -111,6 +111,9 @@ function App() {
       .then((res) =>{
         changeCurrentUser({name: res.name, email: res.email})
       })
+      .then(() =>{
+        changeResError({profileSuccess: 'Обновление профиля прошло успешно!.'})
+      })
       .catch((err) => {
         console.log(err)
         if (err === 'Ошибка: 409') {
