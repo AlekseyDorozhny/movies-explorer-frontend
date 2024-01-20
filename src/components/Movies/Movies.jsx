@@ -9,17 +9,19 @@ import { findMovies } from '../../utils/MoviesUtil';
 
 import moviesApi from '../../utils/MoviesApi';
 
-function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDataFromStorage}) {
+function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDataFromStorage, checkBoxState, setCheckBoxState}) {
 
   const [moviesData, changeMoviesData] = React.useState([])
-  const [filtredMoviesData, changeFiltredMoviesData] = React.useState([]);
   const [searchParams, changeSearchParams] = React.useState({});
   const [isSearching, changeSearchStatus] = React.useState(false);
   const [numberOfVisableCards, setNumberOfVisableCards] = React.useState(12);
   const [displaySize, setDisplaySize] = React.useState({width: window.innerWidth,})
   const [isNotFound, setNotFound] = React.useState(false)
   const [restoreData, setRestoreData] = React.useState(false)
+  const [filtredMoviesDataToDraw, setFiltredMoviesDataToDraw] = React.useState([])
   const [moviesDataToDraw, setMoviesDataToDraw] = React.useState([])
+  const [error, setError] = React.useState(false)
+
 
   React.useEffect(() => {
     const movies = JSON.parse(localStorage.getItem('searchingResaults'))
@@ -30,11 +32,31 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
       changeDataFromStorage(movies)
       changeSearchParams({name: movies.name, shorts: movies.shorts})
       setRestoreData(true)
-    } else {
-      console.log('nothing')
-      return
     }
   }, [])
+
+  React.useEffect(() => {
+    if (restoreData) {
+      setMoviesDataToDraw(dataFromStorage.movies)
+    }
+  }, [restoreData])
+
+  React.useEffect(() => {
+    setNotFound(false)
+    if(checkBoxState) {
+      const filteredMoviesByLenght = moviesDataToDraw.filter((item) => {
+        if (item.duration < 40) {
+            return item
+        }})
+
+      notFoundHandler(filteredMoviesByLenght)
+      setFiltredMoviesDataToDraw(filteredMoviesByLenght)
+
+    } else {
+      notFoundHandler(moviesDataToDraw)
+      setFiltredMoviesDataToDraw(moviesDataToDraw)
+    }
+  }, [checkBoxState, moviesDataToDraw])
 
   React.useEffect(() => {
       const resize = () => {
@@ -49,25 +71,8 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
   }, [])
 
   React.useEffect(() => {
-    const width = JSON.stringify(displaySize).match(/\d+/g)[0];
-    if (width >= 1277) {
-      setNumberOfVisableCards(12)
-    }
-    if (width < 1277) {
-      setNumberOfVisableCards(8)
-    }
-    if (width <= 745) {
-      setNumberOfVisableCards(5)
-    }
+    handleSetNumberOfVisableCards()
   },[displaySize])
-
-  React.useEffect(() => {
-    if (restoreData) {
-      setMoviesDataToDraw(dataFromStorage.movies)
-    } else {
-      setMoviesDataToDraw(filtredMoviesData)
-    }
-}, [restoreData])
 
   const getMoreCards = () => {
     const width = JSON.stringify(displaySize).match(/\d+/g)[0];
@@ -81,13 +86,7 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
     }
   }
 
-  function searchMovieHandler(moviesData, name, shorts) {
-    const movies = findMovies(moviesData, name, shorts, savedMovies)
-    const savedSearchingResaults = {movies: movies, name: searchParams.name, shorts: searchParams.shorts}
-    setMoviesDataToDraw(movies)
-    changeFiltredMoviesData(movies)
-    localStorage.setItem('searchingResaults', JSON.stringify(savedSearchingResaults));
-    changeDataFromStorage(savedSearchingResaults)
+  function handleSetNumberOfVisableCards() {
     const width = JSON.stringify(displaySize).match(/\d+/g)[0];
     if (width >= 1277) {
       setNumberOfVisableCards(12)
@@ -98,6 +97,21 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
     if (width <= 745) {
       setNumberOfVisableCards(5)
     }
+  }
+
+  function notFoundHandler(data) {
+    if (restoreData && !isSearching) {
+      (data.length === 0)? setNotFound(true) : setNotFound(false)
+    }
+  }
+
+  function searchMovieHandler(moviesData, name, shorts) {
+    const movies = findMovies(moviesData, name, shorts, savedMovies)
+    const savedSearchingResaults = {movies: movies, name: searchParams.name, shorts: searchParams.shorts}
+    setMoviesDataToDraw(movies)
+    localStorage.setItem('searchingResaults', JSON.stringify(savedSearchingResaults));
+    changeDataFromStorage(savedSearchingResaults)
+    handleSetNumberOfVisableCards()
     if (movies.length === 0) {
       setNotFound(true)
     }
@@ -105,17 +119,21 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
   }
 
   function searchMovies() {
+    setError(false)
     setNotFound(false)
-    changeFiltredMoviesData([])
-    changeSearchStatus(true)
+    setFiltredMoviesDataToDraw([])
     setMoviesDataToDraw([])
     if (moviesData.length === 0) {
+      changeSearchStatus(true)
       moviesApi.getMovies()
       .then((res) => {
         changeMoviesData(res);
         searchMovieHandler(res, searchParams.name, searchParams.shorts);
       })
-      .catch((err) => {console.log(err)})
+      .catch((err) => {
+        changeSearchStatus(false)
+        setError(true)
+      })
     } else {
       searchMovieHandler(moviesData, searchParams.name, searchParams.shorts);
     }
@@ -128,13 +146,16 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
         changeSearchParams = {changeSearchParams}
         searchFunction = {searchMovies}
         restoreData = {restoreData}
+        checkBoxState = {checkBoxState}
+        setCheckBoxState = {setCheckBoxState}
         />
       </div>
       {(isSearching)? <Preloader /> : ''}
       {(isNotFound)? <p className='movies__notFound'> Ничего не найдено</p> : ''}
+      {(error)? <p className='movies__error'> Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</p> : ''}
       {(!isSearching)?
       <MoviesCardList
-      cardsData = {moviesDataToDraw}
+      cardsData = {filtredMoviesDataToDraw}
       type = 'movies'
       numberOfVisableCards = {numberOfVisableCards}
       saveMovie = {saveMovie}
@@ -144,7 +165,7 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
       />
       :
       ''}
-      {(moviesDataToDraw.length > numberOfVisableCards)?
+      {(filtredMoviesDataToDraw.length > numberOfVisableCards)?
       <button
       className='movies__button'
       type='button'

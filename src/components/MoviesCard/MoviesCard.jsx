@@ -27,7 +27,6 @@ function MoviesCard(
     }
   }
 
-
   <li className='movies-card'></li>
   return(
     <li className={`movies-card ${deleteSavedMovie? 'movies-card_deleted' : ''}`}>
@@ -49,10 +48,12 @@ function MoviesCard(
      </div>
       :
       <div className='movies-card__image-container'>
-        <img className='movies-card__image'
-        alt={`Постер фильма ${movieName}`}
-        src = {movieImage}
-        />
+        <a className='movies-card__link' target="_blank" href={link} rel='noreferrer'>
+          <img className='movies-card__image'
+          alt={`Постер фильма ${movieName}`}
+          src = {movieImage}
+          />
+        </a>
         <button
         type='button'
         className='movies-card__delete-button'
@@ -60,7 +61,6 @@ function MoviesCard(
         ></button>
       </div>
       }
-
       <div className='movies-card__info-container'>
         <h2 className='movies-card__name'>{movieName}</h2>
         <div className='movies-card__length'>

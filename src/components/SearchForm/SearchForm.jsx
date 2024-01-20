@@ -2,23 +2,19 @@ import React from 'react';
 import './SearchForm.css';
 
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-function SearchForm({changeSearchParams, searchFunction, restoreData}) {
+function SearchForm({changeSearchParams, searchFunction, restoreData, checkBoxState, setCheckBoxState}) {
 
   const [searchName, setSearchName] = React.useState('');
-  const [searchShorts, setSearchShorts] = React.useState(false);
   const [error, setError] = React.useState(false)
 
   React.useEffect(() => {
-    changeSearchParams({name: searchName, shorts: searchShorts})
-  },[searchName, searchShorts])
+    changeSearchParams({name: searchName, shorts: checkBoxState})
+  },[searchName, checkBoxState])
 
   React.useEffect(() => {
     if (restoreData) {
       const movies = JSON.parse(localStorage.getItem('searchingResaults'))
-      console.log(movies)
-      setSearchShorts(movies.shorts)
       setSearchName(movies.name)
-
     }
   },[restoreData])
 
@@ -66,8 +62,8 @@ function SearchForm({changeSearchParams, searchFunction, restoreData}) {
         {error? "Нужно ввести ключевое слово" : " "}
         </span>
       <FilterCheckbox
-      setSearchShorts = {setSearchShorts}
-      searchShorts = {searchShorts}
+      setSearchShorts = {setCheckBoxState}
+      searchShorts = {checkBoxState}
       restoreData = {restoreData}
       />
     </form>

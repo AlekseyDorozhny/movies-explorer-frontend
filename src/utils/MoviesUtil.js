@@ -54,6 +54,7 @@ export function likeMovieInStorage(dataFromStorage, likedMovieId) {
 
 export function deleteMovieInStorage(dataFromStorage, deletedMovieId) {
 
+  console.log(dataFromStorage)
   const newLikedMoviesData = dataFromStorage.movies.filter((item) => {
     if (item.id === deletedMovieId) {
       item.saved = false;

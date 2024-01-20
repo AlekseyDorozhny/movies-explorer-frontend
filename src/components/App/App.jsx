@@ -28,7 +28,21 @@ function App() {
   const [currentUser, changeCurrentUser] = React.useState({});
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [resError, changeResError] = React.useState({})
-  const [dataFromStorage, changeDataFromStorage] = React.useState([])
+  const [dataFromStorage, changeDataFromStorage] = React.useState(
+    localStorage.getItem('searchingResaults')?
+    JSON.parse(localStorage.getItem('searchingResaults')) : {});
+
+  const [checkBoxState, setCheckBoxState] = React.useState(
+    localStorage.getItem('searchingResaults')?
+    JSON.parse(localStorage.getItem('searchingResaults')).shorts : false);
+
+  React.useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('searchingResaults'))
+    if (data) {
+      data.shorts = checkBoxState
+      localStorage.setItem('searchingResaults', JSON.stringify(data));
+    }
+  }, [checkBoxState])
 
   React.useEffect(() => {
     tokenCheck(false);
@@ -56,7 +70,7 @@ function App() {
         return
       })
       .catch((err) => {
-        console.log(err.massage)
+        handleLogoutSubmit()
         changeResError({login: err, massage: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.'})
       })
     }
@@ -73,7 +87,6 @@ function App() {
       } else {
         changeResError({register: err, massage: 'При регистрации пользователя произошла ошибка.'})
       }
-
       console.log(err);
     })
   }
@@ -82,8 +95,6 @@ function App() {
     mainApi.login({email, password}).then((res) => {
       if (res){
         tokenCheck(true);
-      } else {
-        console.log('Что-то не так с токеном')
       }
     })
     .catch((err) => {
@@ -126,7 +137,6 @@ function App() {
 
   //обработчики карточек
   function handleSaveMovie(data) {
-    console.log('сохраняю')
     mainApi.saveMovie(data)
     .then((res) => {
       const newDataFromStorage = likeMovieInStorage(dataFromStorage, res.movieId)
@@ -136,10 +146,6 @@ function App() {
       newSavedMovies[newSavedMovies.length] = res
       setSavedMovies(newSavedMovies)
     })
-    .then(() => {
-      console.log(dataFromStorage)
-      console.log(savedMovies)
-    })
     .catch((err) => {console.log(err)})
   }
 
@@ -148,8 +154,10 @@ function App() {
     mainApi.deleteMovie(savedMovie._id)
     .then((res) => {
       if (res) {
-        const newDataFromStorage = deleteMovieInStorage(dataFromStorage, id)
-        localStorage.setItem('searchingResaults', JSON.stringify(newDataFromStorage));
+        if (dataFromStorage.movies) {
+          const newDataFromStorage = deleteMovieInStorage(dataFromStorage, id)
+          localStorage.setItem('searchingResaults', JSON.stringify(newDataFromStorage));
+        }
         const newSavedMovies = savedMovies.filter(i => i.movieId !== id)
         setSavedMovies(newSavedMovies)
       }
@@ -180,6 +188,8 @@ function App() {
               deleteMovie={handleDeleteMovie}
               dataFromStorage={dataFromStorage}
               changeDataFromStorage={changeDataFromStorage}
+              checkBoxState = {checkBoxState}
+              setCheckBoxState = {setCheckBoxState}
             />}
           />
           <Route path='/saved-movies'
@@ -190,6 +200,8 @@ function App() {
               onBurger={onBurger}
               savedMovies={savedMovies}
               deleteMovie={handleDeleteMovie}
+              checkBoxState = {checkBoxState}
+              setCheckBoxState = {setCheckBoxState}
             />}
           />
           <Route path='/profile'

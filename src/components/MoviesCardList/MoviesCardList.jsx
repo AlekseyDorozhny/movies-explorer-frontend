@@ -4,32 +4,13 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 
-function MoviesCardList({ cardsData, type, numberOfVisableCards, saveMovie, deleteMovie, searchParams}) {
-
-  const [moviesDataToDraw, setMoviesDataToDraw] = React.useState([])
-
-  React.useEffect(() => {
-    filterData()
-  }, [searchParams.shorts, cardsData])
-
-  function filterData() {
-    if (searchParams.shorts) {
-      const filteredMoviesByLenght = cardsData.filter((item) => {
-        if (item.duration < 40) {
-            return item
-        }
-      })
-      setMoviesDataToDraw(filteredMoviesByLenght);
-    } else {
-      setMoviesDataToDraw(cardsData);
-    }
-  }
+function MoviesCardList({ cardsData, type, numberOfVisableCards, saveMovie, deleteMovie}) {
 
   return(
     <div className='movies-card-list'>
       <ul className='movies-card-list__container'>
         {(type === 'movies')?
-          moviesDataToDraw.slice(0, numberOfVisableCards).map((card, i) => {
+          cardsData.slice(0, numberOfVisableCards).map((card, i) => {
             return(<MoviesCard
               allData={card}
               movieImage={card.image.url}
@@ -44,7 +25,7 @@ function MoviesCardList({ cardsData, type, numberOfVisableCards, saveMovie, dele
             />)
           })
         :
-        moviesDataToDraw.map((card, i) => {
+        cardsData.map((card, i) => {
           return(<MoviesCard
             allData={card}
             movieImage={card.image}
