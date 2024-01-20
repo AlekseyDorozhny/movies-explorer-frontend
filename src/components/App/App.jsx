@@ -105,7 +105,7 @@ function App() {
 
   function handleLogoutSubmit() {
     mainApi.logout()
-    .then((res) => {
+    .then(() => {
       localStorage.removeItem('jwt');
       localStorage.removeItem('searchingResaults');
       changeLoggedStatus(false);
