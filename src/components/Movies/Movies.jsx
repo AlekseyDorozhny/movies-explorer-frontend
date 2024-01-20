@@ -43,6 +43,7 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
 
   React.useEffect(() => {
     setNotFound(false)
+    handleSetNumberOfVisableCards()
     if(checkBoxState) {
       const filteredMoviesByLenght = moviesDataToDraw.filter((item) => {
         if (item.duration < 40) {

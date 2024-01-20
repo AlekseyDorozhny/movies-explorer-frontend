@@ -17,12 +17,9 @@ function SavedMovies({savedMovies, deleteMovie, checkBoxState, setCheckBoxState}
 
 
   React.useEffect(() => {
+    setNotFound(false)
     if (checkBoxState) {
-      const filteredMoviesByLenght = cardsData.filter((item) => {
-        if (item.duration < 40) {
-            return item
-        }})
-        changeCardsData(filteredMoviesByLenght)
+      drawShortsMovies(savedMovies)
     } else {
       if (savedMovies.length !== 0) {
         changeCardsData(savedMovies)
@@ -32,14 +29,29 @@ function SavedMovies({savedMovies, deleteMovie, checkBoxState, setCheckBoxState}
   }, [checkBoxState, savedMovies])
 
   function searchSavedMovies() {
+
     if (savedMovies.length !== 0 && searchParams.name) {
       setNotFound(false)
       const movies = findSavedMovies(savedMovies, searchParams.name)
-      changeCardsData(movies)
-
+      if (checkBoxState) {
+        drawShortsMovies(movies)
+      } else {
+        changeCardsData(movies)
+      }
       if (movies.length === 0) {
         setNotFound(true)
       }
+    }
+  }
+
+  function drawShortsMovies(data) {
+    const filteredMoviesByLenght = data.filter((item) => {
+      if (item.duration < 40) {
+          return item
+      }})
+      changeCardsData(filteredMoviesByLenght)
+    if (filteredMoviesByLenght.length === 0) {
+      setNotFound(true)
     }
   }
 

@@ -97,6 +97,7 @@ function Register({onSubmit, resError, changeResError, loggedIn}) {
           placeholder="Пароль"
           name="passwordRegisterForm"
           autoComplete="newPassword"
+          minLength={8}
           required
           onChange={handlePasswordChange}
           value={password}/>

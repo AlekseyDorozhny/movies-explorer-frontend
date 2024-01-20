@@ -6,6 +6,8 @@ function SearchForm({changeSearchParams, searchFunction, restoreData, checkBoxSt
 
   const [searchName, setSearchName] = React.useState('');
   const [error, setError] = React.useState(false)
+  const [localRestoreData, setLocalRestoreData] = React.useState(restoreData)
+
 
   React.useEffect(() => {
     changeSearchParams({name: searchName, shorts: checkBoxState})
@@ -20,6 +22,7 @@ function SearchForm({changeSearchParams, searchFunction, restoreData, checkBoxSt
 
 
   function handleNameChange(e) {
+    setLocalRestoreData(false)
     setSearchName(e.target.value);
   }
 
@@ -52,8 +55,8 @@ function SearchForm({changeSearchParams, searchFunction, restoreData, checkBoxSt
           name="searchForm"
           onChange={handleNameChange}
           onSelect={handleSelectInput}
-          defaultValue={restoreData? JSON.parse(localStorage.getItem('searchingResaults')).name
-          : ''}
+          value={localRestoreData? JSON.parse(localStorage.getItem('searchingResaults')).name
+          : searchName}
           required />
         </label>
         <button type='submit' className='search-form__button'></button>
