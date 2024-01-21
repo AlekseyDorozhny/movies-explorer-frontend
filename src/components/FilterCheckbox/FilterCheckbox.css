@@ -1,13 +1,12 @@
 .filter-checkbox{
   margin: auto;
   display: flex;
-  margin-top: 29px;
+  margin-top: 10px;
   margin-bottom: 29px;
 }
 
 .filter-checkbox__button{
   border: none;
-  background: url('../../images/smalltumb.svg');
   background-size: cover;
   width: 36px;
   height: 20px;

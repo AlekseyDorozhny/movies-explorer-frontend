@@ -7,7 +7,19 @@
   flex-direction: column;
 }
 
+.search-form__error{
+  color: #EE3465;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: normal;
+  min-height: 12px;
+  align-self: center;
+  margin-top: 10px;
+  min-height: 19px;
+}
+
 .search-form__container{
+  position: relative;
   display: flex;
   width: 100%;
   column-gap: 10px;

@@ -37,6 +37,16 @@
   cursor: pointer;
 }
 
+.movies__notFound{
+  font-size: 50px;
+  margin-top: 75px;
+}
+
+.movies__error{
+  font-size: 20px;
+  margin-top: 75px;
+}
+
 @media screen and (max-width: 770px) {
   .movies{
     width: 92%;
