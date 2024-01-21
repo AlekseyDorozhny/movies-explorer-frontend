@@ -15,6 +15,10 @@ function SavedMovies({savedMovies, deleteMovie, checkBoxState, setCheckBoxState}
     changeCardsData(savedMovies)
   }, [savedMovies])
 
+  React.useEffect(() => {
+    setCheckBoxState(false)
+  }, [])
+
 
   React.useEffect(() => {
     setNotFound(false)

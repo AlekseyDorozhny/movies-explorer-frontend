@@ -37,22 +37,16 @@ function App() {
     JSON.parse(localStorage.getItem('searchingResaults')).shorts : false);
 
   React.useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('searchingResaults'))
-    if (data) {
-      data.shorts = checkBoxState
-      localStorage.setItem('searchingResaults', JSON.stringify(data));
-    }
-  }, [checkBoxState])
-
-  React.useEffect(() => {
     tokenCheck(false);
   }, [])
 
   React.useEffect(() => {
-    mainApi.getSavedMovies()
-    .then((res) => {setSavedMovies(res)})
-    .catch((err) => {console.log(err)})
-  }, [])
+    if (loggedIn) {
+      mainApi.getSavedMovies()
+      .then((res) => {setSavedMovies(res)})
+      .catch((err) => {console.log(err)})
+    }
+  }, [loggedIn])
 
   const navigate = useNavigate();
 

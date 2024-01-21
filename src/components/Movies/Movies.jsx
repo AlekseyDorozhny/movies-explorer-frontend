@@ -24,11 +24,15 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
 
 
   React.useEffect(() => {
+    setCheckBoxState(false)
     const movies = JSON.parse(localStorage.getItem('searchingResaults'))
     if (movies !== null) {
-      if (movies.length === 0) {
+      if (!movies.movies) {
+        changeSearchParams({shorts: movies.shorts})
+        checkBoxLoader()
         return
       }
+      checkBoxLoader()
       changeDataFromStorage(movies)
       changeSearchParams({name: movies.name, shorts: movies.shorts})
       setRestoreData(true)
@@ -119,6 +123,23 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
     changeSearchStatus(false)
   }
 
+  function checkBoxSaver(boolean) {
+    setCheckBoxState(boolean)
+    if (JSON.parse(localStorage.getItem('searchingResaults'))) {
+      const savedData = JSON.parse(localStorage.getItem('searchingResaults'))
+      savedData.shorts = boolean;
+      localStorage.setItem('searchingResaults', JSON.stringify(savedData));
+    } else {
+      const savedData = {shorts: boolean}
+      localStorage.setItem('searchingResaults', JSON.stringify(savedData));
+    }
+  }
+
+  function checkBoxLoader() {
+    const savedData = JSON.parse(localStorage.getItem('searchingResaults'))
+    setCheckBoxState(savedData.shorts)
+  }
+
   function searchMovies() {
     setError(false)
     setNotFound(false)
@@ -148,7 +169,7 @@ function Movies({dataFromStorage, saveMovie, savedMovies, deleteMovie, changeDat
         searchFunction = {searchMovies}
         restoreData = {restoreData}
         checkBoxState = {checkBoxState}
-        setCheckBoxState = {setCheckBoxState}
+        setCheckBoxState = {checkBoxSaver}
         />
       </div>
       {(isSearching)? <Preloader /> : ''}
